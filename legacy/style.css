@@ -1,0 +1,213 @@
+@import url("https://fonts.googleapis.com/css2?family=Michroma&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Michroma", sans-serif;
+  height: 100vh;
+}
+
+.container {
+  background-color: black;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+}
+
+/* Logo and logo name initial state */
+#logo,
+.logo-name {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* Fade in the logo first */
+#logo {
+  animation: glowGradient 3s ease-in-out infinite, fadeIn 1s ease-out forwards, fadeOut 1.5s ease-out 2s forwards;
+  height: 150px;
+  width: 150px;
+  object-fit: contain;
+}
+
+/* After the logo fades in, fade in the logo name */
+.logo-name {
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: 12px;
+  text-transform: uppercase;
+  margin-left: 20px;
+  font-weight: bolder;
+  animation: glowGradient 2s ease-in-out infinite, fadeIn 2.5s ease-out forwards, fadeOut 1.5s ease-out 2s forwards;
+}
+
+/* Fade out logo and name before the next screen */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Keyframes for glowing gradient animation */
+@keyframes glowGradient {
+  0% {
+    filter: drop-shadow(0 0 10px #ff6ec4) drop-shadow(0 0 20px #ff6ec4);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px #ff6ec4) drop-shadow(0 0 30px #9d50bb);
+  }
+  100% {
+    filter: drop-shadow(0 0 10px #9d50bb) drop-shadow(0 0 20px #ff6ec4);
+  }
+}
+
+/* Modal and prompt styles */
+
+.language-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(218, 208, 208, 0.8);
+  z-index: 1000;
+}
+
+.language-prompt {
+  font-size: 16px;
+  color: #ccc;
+  margin-top: 15px;
+}
+
+.language-selection {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.language-button {
+  background-color: #2c5364;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.language-button:hover {
+  background-color: #1f2e36;
+}
+
+.language-button:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Loading and action pages */
+.loading-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  color: #191654;
+
+}
+
+.action-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 2s ease;
+}
+
+/* Initially hide the action page */
+.action-page {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.action-page.visible {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+/* Action prompt and button styles */
+.action-prompt {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.action-selection {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.action-button {
+  background-color: #2c5364;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #1f2e36;
+}
+
+.action-button:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
