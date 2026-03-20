@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haidar Esber — Développeur & Chercheur</title>
+  <meta name="description" content="Portfolio de Haidar Esber — Développeur Fullstack & Chercheur indépendant. Vannes, France.">
+  <meta name="author" content="Haidar Esber">
+  <meta name="citation_title" content="PhaseShield: Adversarial Perturbation of WiFi Channel State Information for Privacy-Preserving Passive Sensing Mitigation">
+  <meta name="citation_author" content="Esber, Haidar">
+  <meta name="citation_publication_date" content="2026">
+  <meta property="og:title" content="Haidar Esber — Portfolio">
+  <meta property="og:url" content="https://haidaresber.github.io">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0c10;--bg2:#111116;--surface:#17171f;--surface2:#1e1e28;
+  --accent:#00d9ff;--accent2:#00ff9d;--accent3:#7c3aed;--accent4:#ff6b6b;
+  --text:#e2e8f0;--text2:#8892a4;--text3:#4a5568;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
+  --glow:0 0 30px rgba(0,217,255,0.25);
+  --sans:'Space Grotesk',sans-serif;--body:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+::selection{background:rgba(0,217,255,0.18);color:var(--accent)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--accent3);border-radius:2px}
+img{display:block;max-width:100%}a{text-decoration:none;color:inherit}
+.container{max-width:1140px;margin:0 auto;padding:0 2rem}
+section{padding:7rem 0}
+
+/* ── Keyframes ── */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.6rem;border-radius:6px;font-family:var(--mono);font-size:.8rem;font-weight:500;letter-spacing:.04em;transition:all .3s var(--ease);cursor:pointer;border:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:var(--bg)}
+.btn-primary:hover{background:var(--accent2);box-shadow:0 0 24px rgba(0,255,157,.35);transform:translateY(-2px)}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+/* ── Navbar ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.25rem 0;transition:all .4s var(--ease)}
+nav.scrolled{background:rgba(12,12,16,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:.8rem 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1140px;margin:0 auto;padding:0 2rem}
+.nav-logo{font-family:var(--mono);font-size:.95rem;font-weight:700;color:var(--accent);letter-spacing:.05em}
+.nav-logo span{color:var(--text3)}
+.nav-right{display:flex;align-items:center;gap:2rem}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:.72rem;color:var(--text3);letter-spacing:.08em;transition:color .2s;text-transform:uppercase}
+.nav-links a:hover{color:var(--accent)}
+.lang-toggle{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:5px;overflow:hidden}
+.lang-btn{font-family:var(--mono);font-size:.68rem;padding:.28rem .55rem;background:transparent;border:none;color:var(--text3);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+.lang-btn.active{background:var(--accent);color:var(--bg)}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.nav-toggle span{display:block;width:22px;height:1.5px;background:var(--text);transition:all .3s}
+.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+@media(max-width:768px){
+  .nav-toggle{display:flex}
+  .nav-links{position:fixed;top:0;right:-100%;height:100vh;width:260px;background:var(--bg2);border-left:1px solid var(--border);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;transition:right .35s var(--ease);z-index:999}
+  .nav-links.open{right:0}
+  .nav-links a{font-size:.9rem}
+}
+
+/* ── Hero ── */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:5rem;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr;align-items:center;width:100%;max-width:760px}
+.hero-eyebrow{font-family:var(--mono);font-size:.82rem;color:var(--accent2);letter-spacing:.18em;margin-bottom:1.6rem;opacity:0;animation:fadeUp .6s var(--ease) .2s forwards}
+.hero-name{font-family:var(--sans);font-size:clamp(4rem,10.5vw,8.5rem);font-weight:700;line-height:.92;margin-bottom:1.8rem;opacity:0;animation:fadeUp .7s var(--ease) .35s forwards}
+.hero-name .first{display:block;color:var(--text)}
+.hero-name .last{display:block;-webkit-text-stroke:2px var(--accent);color:transparent}
+.hero-role{font-family:var(--mono);font-size:clamp(.85rem,1.8vw,1rem);color:var(--text2);margin-bottom:1.6rem;min-height:1.6em;opacity:0;animation:fadeUp .6s var(--ease) .5s forwards}
+.hero-role .cursor{display:inline-block;width:2px;height:.95em;background:var(--accent);vertical-align:middle;margin-left:2px;animation:blink 1s step-end infinite}
+.hero-bio{max-width:480px;color:var(--text2);font-size:.95rem;line-height:1.9;margin-bottom:2.5rem;opacity:0;animation:fadeUp .6s var(--ease) .65s forwards}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.85rem;margin-bottom:2.5rem;opacity:0;animation:fadeUp .6s var(--ease) .78s forwards}
+.hero-socials{display:flex;gap:.65rem;opacity:0;animation:fadeUp .6s var(--ease) .9s forwards}
+.hero-socials a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid var(--border);border-radius:6px;color:var(--text3);font-size:.85rem;transition:all .25s}
+.hero-socials a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px)}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:0;animation:fadeUp .6s var(--ease) 1.2s forwards}
+.hero-scroll span{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--text3);text-transform:uppercase}
+.hero-scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--accent),transparent);animation:float 2s ease-in-out infinite}
+
+/* ── Device Canvases ── */
+.device-canvas{display:block;width:100%;border-radius:16px;background:transparent}
+.dcanvas-laptop{height:390px}
+.dcanvas-phone{height:460px;max-width:260px;margin:0 auto}
+.device-wrap{position:relative}
+.device-wrap::before{content:'Loading model...';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.7rem;color:var(--text3);letter-spacing:.1em;pointer-events:none;z-index:0}
+.device-wrap.loaded::before{display:none}
+
+/* ── Section headers ── */
+.section-eyebrow{font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.section-eyebrow::before{content:'';width:2rem;height:1px;background:var(--accent)}
+.section-title{font-family:var(--sans);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:1rem}
+.section-title span{color:var(--accent)}
+.section-rule{width:48px;height:2px;background:linear-gradient(90deg,var(--accent),transparent);margin-bottom:3.5rem}
+.alt-bg{background:var(--bg2)}
+
+/* ── About ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr;gap:3rem}}
+.about-text p{color:var(--text2);margin-bottom:1.2rem;line-height:1.9;font-size:.95rem}
+.about-terminal{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-family:var(--mono)}
+.t-bar{display:flex;align-items:center;gap:.5rem;padding:.7rem 1rem;background:var(--surface2);border-bottom:1px solid var(--border)}
+.t-dot{width:11px;height:11px;border-radius:50%}
+.t-dot:nth-child(1){background:#ff5f57}.t-dot:nth-child(2){background:#ffbd2e}.t-dot:nth-child(3){background:#28ca40}
+.t-title{font-size:.65rem;color:var(--text3);margin-left:.5rem}
+.t-body{padding:1.25rem 1.5rem;font-size:.78rem;line-height:2}
+.t-prompt{color:var(--accent2)}.t-cmd{color:var(--accent)}.t-out{color:var(--text2);display:block;padding-left:1rem}.t-k{color:var(--accent3)}.t-v{color:var(--accent2)}
+.skills-wrap{margin-top:2rem}
+.skills-label{font-family:var(--mono);font-size:.67rem;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem}
+.skills-tags{display:flex;flex-wrap:wrap;gap:.45rem}
+.skill-tag{font-family:var(--mono);font-size:.7rem;padding:.25rem .65rem;background:rgba(0,217,255,.07);border:1px solid rgba(0,217,255,.12);border-radius:4px;color:var(--text2);transition:all .2s}
+.skill-tag:hover{background:rgba(0,217,255,.14);border-color:var(--accent);color:var(--accent)}
+
+/* ── Timeline ── */
+.timeline{position:relative;padding-left:1.75rem}
+.timeline::before{content:'';position:absolute;left:0;top:.4rem;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),var(--accent3) 60%,transparent)}
+.tl-item{position:relative;padding:0 0 2.75rem 1.75rem}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-1.75rem;top:.35rem;width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 8px var(--accent);transform:translateX(calc(50% - .5px))}
+.tl-date{font-family:var(--mono);font-size:.68rem;color:var(--accent2);letter-spacing:.07em;margin-bottom:.4rem}
+.tl-logo-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.2rem}
+.tl-logo{width:30px;height:30px;border-radius:7px;object-fit:contain;background:#fff;padding:3px;flex-shrink:0}
+.tl-logo-ph{width:30px;height:30px;border-radius:7px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:.8rem;flex-shrink:0}
+.tl-role{font-size:.98rem;font-weight:600;color:var(--text)}
+.tl-org{font-family:var(--mono);font-size:.76rem;color:var(--accent);margin-bottom:.75rem}
+.tl-list{list-style:none;color:var(--text2);font-size:.85rem}
+.tl-list li{padding:.15rem 0 .15rem 1rem;position:relative}
+.tl-list li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:.6rem;top:.3rem}
+
+/* ── Projects ── */
+.project-featured{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-bottom:6rem}
+.project-featured.reverse{direction:rtl}.project-featured.reverse>*{direction:ltr}
+@media(max-width:900px){.project-featured,.project-featured.reverse{grid-template-columns:1fr;direction:ltr}}
+.project-num{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.18em;margin-bottom:.6rem}
+.project-title{font-family:var(--sans);font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;margin-bottom:.75rem}
+.project-desc{color:var(--text2);font-size:.9rem;line-height:1.85;margin-bottom:1.25rem}
+.project-stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem}
+.project-tag{font-family:var(--mono);font-size:.67rem;padding:.2rem .6rem;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.2);border-radius:4px;color:#a78bfa}
+.project-links{display:flex;gap:.75rem}
+.project-link{font-family:var(--mono);font-size:.75rem;color:var(--text3);display:flex;align-items:center;gap:.35rem;transition:color .2s}
+.project-link:hover{color:var(--accent)}
+
+/* smaller project cards */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-top:3rem}
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.75rem;transition:all .3s var(--ease);position:relative;overflow:hidden}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent3));opacity:0;transition:opacity .3s}
+.project-card:hover{border-color:rgba(0,217,255,.22);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,217,255,.08)}
+.project-card:hover::before{opacity:1}
+.pc-num{font-family:var(--mono);font-size:.65rem;color:var(--text3);letter-spacing:.1em;margin-bottom:.75rem}
+.pc-title{font-size:1rem;font-weight:600;font-family:var(--sans);margin-bottom:.5rem}
+.pc-desc{font-size:.84rem;color:var(--text2);line-height:1.7;margin-bottom:1rem}
+.pc-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.pc-tag{font-family:var(--mono);font-size:.63rem;padding:.18rem .5rem;background:rgba(0,217,255,.06);border:1px solid rgba(0,217,255,.1);border-radius:3px;color:var(--text3)}
+
+/* ── Device Wrap ── */
+.device-wrap{display:flex;align-items:center;justify-content:center;width:100%}
+
+/* ── Certifications ── */
+.cert-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
+.cert-group{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:border-color .3s}
+.cert-group:hover{border-color:rgba(0,217,255,.18)}
+.cert-group-header{display:flex;align-items:center;gap:.85rem;margin-bottom:1.1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.cert-group-logo{width:40px;height:40px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;padding:5px;flex-shrink:0;overflow:hidden}
+.cert-group-logo img{width:100%;height:100%;object-fit:contain}
+.cert-group-name{font-family:var(--sans);font-size:.9rem;font-weight:600}
+.cert-group-sub{font-family:var(--mono);font-size:.63rem;color:var(--text3);margin-top:.1rem}
+.cert-list{display:flex;flex-direction:column;gap:.45rem}
+.cert-item{display:flex;align-items:center;gap:.55rem;font-size:.82rem;color:var(--text2)}
+.cert-check{color:var(--accent2);font-size:.75rem;flex-shrink:0}
+
+/* ── Research ── */
+.pub-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem;position:relative;overflow:hidden}
+.pub-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom,var(--accent2),var(--accent))}
+.pub-type{font-family:var(--mono);font-size:.68rem;color:var(--accent2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+.pub-dot{width:5px;height:5px;border-radius:50%;background:var(--accent2);animation:blink 2s infinite}
+.pub-title{font-family:var(--sans);font-size:1.15rem;font-weight:600;line-height:1.4;margin-bottom:.65rem}
+.pub-authors{font-family:var(--mono);font-size:.78rem;color:var(--accent);margin-bottom:1.2rem}
+.pub-abstract{color:var(--text2);font-size:.88rem;line-height:1.85;margin-bottom:1.4rem}
+.pub-keywords{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.4rem}
+.pub-kw{font-family:var(--mono);font-size:.65rem;padding:.22rem .6rem;background:rgba(0,217,255,.07);border:1px solid rgba(0,217,255,.12);border-radius:20px;color:var(--text3)}
+.pub-links{display:flex;gap:.65rem;flex-wrap:wrap}
+.pub-link{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.74rem;padding:.45rem .95rem;border-radius:6px;border:1px solid var(--border2);color:var(--text2);transition:all .25s}
+.pub-link:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── CoJeCo ── */
+.cojeco-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+@media(max-width:768px){.cojeco-grid{grid-template-columns:1fr}}
+.cojeco-title{font-family:var(--sans);font-size:1.4rem;font-weight:700;margin-bottom:.4rem}
+.cojeco-sub{font-family:var(--mono);font-size:.76rem;color:var(--accent2);margin-bottom:1.4rem}
+.cojeco-desc{color:var(--text2);font-size:.9rem;line-height:1.9;margin-bottom:1.4rem}
+.cojeco-meta{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.75rem}
+.cojeco-meta-item{display:flex;align-items:center;gap:.65rem;font-family:var(--mono);font-size:.75rem;color:var(--text2)}
+.cojeco-meta-item i{color:var(--accent);width:14px;text-align:center}
+.partners-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+.partners-label{font-family:var(--mono);font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:1.1rem}
+.partners-list{display:flex;flex-direction:column;gap:.6rem}
+.partner-item{display:flex;align-items:center;gap:.65rem;padding:.6rem .8rem;background:var(--bg);border-radius:8px;border:1px solid var(--border);transition:border-color .2s}
+.partner-item:hover{border-color:rgba(0,217,255,.2)}
+.partner-logo-wrap{width:28px;height:28px;border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;padding:3px;flex-shrink:0;overflow:hidden}
+.partner-logo-wrap img{width:100%;height:100%;object-fit:contain}
+.partner-name{font-size:.82rem;color:var(--text2)}
+
+/* ── Contact ── */
+#contact{background:var(--bg2)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr;gap:3rem}}
+.contact-heading{font-family:var(--sans);font-size:clamp(1.6rem,4vw,2.5rem);font-weight:700;line-height:1.1;margin-bottom:1rem}
+.contact-sub{color:var(--text2);font-size:.9rem;line-height:1.85;margin-bottom:2rem}
+.contact-links{display:flex;flex-direction:column;gap:.8rem}
+.contact-link{display:flex;align-items:center;gap:.65rem;font-family:var(--mono);font-size:.8rem;color:var(--text2);transition:color .2s}
+.contact-link i{color:var(--accent);width:14px}
+.contact-link:hover{color:var(--accent)}
+.contact-form{display:flex;flex-direction:column;gap:1.1rem}
+.form-group{display:flex;flex-direction:column;gap:.35rem}
+.form-group label{font-family:var(--mono);font-size:.67rem;color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
+.form-group input,.form-group textarea{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.72rem 1rem;color:var(--text);font-family:var(--body);font-size:.88rem;outline:none;transition:border-color .25s,box-shadow .25s;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,217,255,.08)}
+.form-group textarea{min-height:110px}
+
+/* ── Footer ── */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:1.75rem 0}
+.footer-inner{max-width:1140px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-family:var(--mono);font-size:.7rem;color:var(--text3)}
+.footer-copy span{color:var(--accent)}
+.footer-links{display:flex;gap:1.1rem}
+.footer-links a{font-size:.9rem;color:var(--text3);transition:color .2s}
+.footer-links a:hover{color:var(--accent)}
+
+@media(max-width:640px){
+  section{padding:5rem 0}
+  .hero-ctas{flex-direction:column}
+  .btn{justify-content:center}
+  .project-featured{gap:3rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">HE<span>.</span></a>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about" class="t" data-fr="À propos" data-en="About">À propos</a></li>
+        <li><a href="#projects" class="t" data-fr="Projets" data-en="Projects">Projets</a></li>
+        <li><a href="#research" class="t" data-fr="Recherche" data-en="Research">Recherche</a></li>
+        <li><a href="#contact" class="t" data-fr="Contact" data-en="Contact">Contact</a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="fr" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow t" data-fr="// Disponible — Vannes, France" data-en="// Available — Vannes, France">// Disponible — Vannes, France</div>
+        <h1 class="hero-name">
+          <span class="first">Haidar</span>
+          <span class="last">Esber</span>
+        </h1>
+        <p class="hero-role"><span id="typed-text"></span><span class="cursor"></span></p>
+        <p class="hero-bio t"
+          data-fr="Développeur Fullstack & chercheur indépendant. Je construis des systèmes intelligents, sécurisés et utiles — du code à la recherche académique."
+          data-en="Fullstack developer & independent researcher. I build intelligent, secure, and useful systems — from code to academic research.">
+          Développeur Fullstack & chercheur indépendant. Je construis des systèmes intelligents, sécurisés et utiles — du code à la recherche académique.
+        </p>
+        <div class="hero-ctas">
+          <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> <span class="t" data-fr="Voir les projets" data-en="View projects">Voir les projets</span></a>
+          <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> <span class="t" data-fr="Me contacter" data-en="Contact me">Me contacter</span></a>
+        </div>
+        <div class="hero-socials">
+          <a href="https://github.com/HaidarESBER" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/haidaresber" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+          <a href="mailto:haidarchreif@gmail.com"><i class="fas fa-envelope"></i></a>
+          <a href="https://cojeco.fr" target="_blank" rel="noopener"><i class="fas fa-globe"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>scroll</span><div class="hero-scroll-line"></div></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="alt-bg">
+  <div class="container">
+    <div class="about-grid">
+      <div data-aos="fade-right">
+        <div class="section-eyebrow t" data-fr="À propos" data-en="About">À propos</div>
+        <h2 class="section-title t" data-fr="Développeur &amp; <span>chercheur</span>" data-en="Developer &amp; <span>researcher</span>">Développeur &amp; <span>chercheur</span></h2>
+        <div class="section-rule"></div>
+        <p class="t"
+          data-fr="À 24 ans, je suis développeur Fullstack et chercheur indépendant basé à Vannes, France — originaire du Liban. Mon parcours couvre les architectures logicielles, les systèmes distribués et l'ingénierie réseau."
+          data-en="At 24, I am a Fullstack developer and independent researcher based in Vannes, France — originally from Lebanon. My background spans software architectures, distributed systems, and network engineering.">
+          À 24 ans, je suis développeur Fullstack et chercheur indépendant basé à Vannes, France — originaire du Liban. Mon parcours couvre les architectures logicielles, les systèmes distribués et l'ingénierie réseau.
+        </p>
+        <p class="t" style="margin-top:1.1rem"
+          data-fr="En 2026, j'ai publié <strong style='color:var(--accent)'>PhaseShield</strong>, un framework adversarial pour protéger la vie privée face à la détection passive via WiFi CSI. J'ai aussi fondé <strong style='color:var(--accent2)'>CoJeCo</strong>, une association pour l'éducation et l'inclusion numérique."
+          data-en="In 2026, I published <strong style='color:var(--accent)'>PhaseShield</strong>, an adversarial framework for privacy protection against passive WiFi CSI detection. I also founded <strong style='color:var(--accent2)'>CoJeCo</strong>, an association for digital education and inclusion.">
+          En 2026, j'ai publié <strong style="color:var(--accent)">PhaseShield</strong>, un framework adversarial pour protéger la vie privée face à la détection passive via WiFi CSI. J'ai aussi fondé <strong style="color:var(--accent2)">CoJeCo</strong>, une association pour l'éducation et l'inclusion numérique.
+        </p>
+        <div class="skills-wrap">
+          <div class="skills-label t" data-fr="Stack technique" data-en="Tech stack">Stack technique</div>
+          <div class="skills-tags">
+            <span class="skill-tag">React</span><span class="skill-tag">Next.js</span><span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">Node.js</span><span class="skill-tag">Python</span><span class="skill-tag">PHP</span>
+            <span class="skill-tag">Docker</span><span class="skill-tag">Azure</span><span class="skill-tag">Linux</span>
+            <span class="skill-tag">Ollama / LLM</span><span class="skill-tag">Bubble IO</span><span class="skill-tag">SQL</span>
+            <span class="skill-tag">WiFi CSI</span><span class="skill-tag">Zabbix</span><span class="skill-tag">OpenVPN</span>
+          </div>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-delay="100">
+        <div class="about-terminal">
+          <div class="t-bar"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><span class="t-title">~/haidar — bash</span></div>
+          <div class="t-body">
+            <div><span class="t-prompt">❯ </span><span class="t-cmd">whoami</span></div>
+            <span class="t-out">Haidar Esber</span>
+            <div><span class="t-prompt">❯ </span><span class="t-cmd">cat info.json</span></div>
+            <span class="t-out">{<br>
+            &nbsp;&nbsp;<span class="t-k">"age"</span>: <span class="t-v">24</span>,<br>
+            &nbsp;&nbsp;<span class="t-k">"location"</span>: <span class="t-v">"Vannes, France"</span>,<br>
+            &nbsp;&nbsp;<span class="t-k">"origin"</span>: <span class="t-v">"Lebanon 🇱🇧"</span>,<br>
+            &nbsp;&nbsp;<span class="t-k">"role"</span>: <span class="t-v">"Fullstack Dev &amp; Researcher"</span>,<br>
+            &nbsp;&nbsp;<span class="t-k">"languages"</span>: <span class="t-v">["FR","EN","AR"] C2</span>,<br>
+            &nbsp;&nbsp;<span class="t-k">"status"</span>: <span class="t-v" style="color:var(--accent2)" id="terminal-status">Open to work ✓</span><br>
+            }</span>
+          </div>
+        </div>
+
+        <!-- Experience -->
+        <div style="margin-top:2.5rem">
+          <div class="skills-label t" data-fr="Expériences" data-en="Experience">Expériences</div>
+          <div class="timeline" style="margin-top:.75rem">
+            <div class="tl-item" data-aos="fade-up">
+              <div class="tl-dot"></div>
+              <div class="tl-date t" data-fr="sep 2025 — présent" data-en="Sep 2025 — present">sep 2025 — présent</div>
+              <div class="tl-logo-row"><div class="tl-logo-ph"><i class="fas fa-building"></i></div><div class="tl-role t" data-fr="Développeur Fullstack & NoCode" data-en="Fullstack & NoCode Developer">Développeur Fullstack & NoCode</div></div>
+              <div class="tl-org">Laboccaz</div>
+            </div>
+            <div class="tl-item" data-aos="fade-up">
+              <div class="tl-dot" style="background:var(--accent2);box-shadow:0 0 8px var(--accent2)"></div>
+              <div class="tl-date t" data-fr="mai 2025 — présent" data-en="May 2025 — present">mai 2025 — présent</div>
+              <div class="tl-logo-row"><div class="tl-logo-ph"><i class="fas fa-globe"></i></div><div class="tl-role t" data-fr="Fondateur & Développeur" data-en="Founder & Developer">Fondateur & Développeur</div></div>
+              <div class="tl-org">CoJeCo — cojeco.fr</div>
+            </div>
+            <div class="tl-item" data-aos="fade-up">
+              <div class="tl-dot" style="background:var(--accent3);box-shadow:0 0 8px var(--accent3)"></div>
+              <div class="tl-date t" data-fr="sep 2024 — sep 2025" data-en="Sep 2024 — Sep 2025">sep 2024 — sep 2025</div>
+              <div class="tl-logo-row"><div class="tl-logo-ph"><i class="fas fa-school"></i></div><div class="tl-role t" data-fr="Développeur & Support IT" data-en="Developer & IT Support">Développeur & Support IT</div></div>
+              <div class="tl-org t" data-fr="Pôle BTS Alternance — Trélazé" data-en="Pôle BTS Alternance — Trélazé">Pôle BTS Alternance — Trélazé</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div style="margin-top:2rem">
+          <div class="skills-label t" data-fr="Formation" data-en="Education">Formation</div>
+          <div class="timeline" style="margin-top:.75rem">
+            <div class="tl-item" data-aos="fade-up">
+              <div class="tl-dot"></div>
+              <div class="tl-date">2025 — présent</div>
+              <div class="tl-logo-row"><div class="tl-logo-ph"><i class="fas fa-graduation-cap"></i></div><div class="tl-role t" data-fr="Bac+3 Développeur Fullstack" data-en="Bachelor's Fullstack Developer">Bac+3 Développeur Fullstack</div></div>
+              <div class="tl-org">EFREI Paris</div>
+            </div>
+            <div class="tl-item" data-aos="fade-up">
+              <div class="tl-dot" style="background:var(--accent2);box-shadow:0 0 8px var(--accent2)"></div>
+              <div class="tl-date">2025 — présent</div>
+              <div class="tl-logo-row"><div class="tl-logo-ph"><i class="fas fa-university"></i></div><div class="tl-role">Learning AI through Visualization</div></div>
+              <div class="tl-org">Columbia University</div>
+            </div>
+            <div class="tl-item" data-aos="fade-up">
+              <div class="tl-dot" style="background:var(--accent3);box-shadow:0 0 8px var(--accent3)"></div>
+              <div class="tl-date">2024 — 2025</div>
+              <div class="tl-logo-row"><div class="tl-logo-ph"><i class="fas fa-laptop"></i></div><div class="tl-role t" data-fr="Bac+2 CDA" data-en="Associate's Degree — CDA">Bac+2 CDA</div></div>
+              <div class="tl-org">LearnIT by Open Campus</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-eyebrow t" data-fr="Projets" data-en="Projects" data-aos="fade-up">Projets</div>
+    <h2 class="section-title" data-aos="fade-up"><span class="t" data-fr="Ce que je" data-en="What I">Ce que je</span> <span class="t" data-fr="construis" data-en="build">construis</span></h2>
+    <div class="section-rule" data-aos="fade-up"></div>
+
+    <!-- Project 01 — Moteur IA → Laptop -->
+    <div class="project-featured" data-aos="fade-up">
+      <div>
+        <div class="project-num t" data-fr="Projet 01" data-en="Project 01">Projet 01</div>
+        <h3 class="project-title t" data-fr="Moteur IA Éthique" data-en="Ethical AI Search Engine">Moteur IA Éthique</h3>
+        <p class="project-desc t"
+          data-fr="Moteur de recherche open source propulsé par des LLMs locaux. Frontend React avec réponses en streaming, intégration SearXNG + DuckDuckGo, chatbot intelligent configurable."
+          data-en="Open source search engine powered by local LLMs. React frontend with streaming responses, SearXNG + DuckDuckGo integration, configurable intelligent chatbot.">
+          Moteur de recherche open source propulsé par des LLMs locaux. Frontend React avec réponses en streaming, intégration SearXNG + DuckDuckGo, chatbot intelligent configurable.
+        </p>
+        <div class="project-stack">
+          <span class="project-tag">React</span><span class="project-tag">Ollama</span>
+          <span class="project-tag">SearXNG</span><span class="project-tag">Python</span><span class="project-tag">Streaming</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/HaidarESBER" class="project-link" target="_blank"><i class="fab fa-github"></i> <span class="t" data-fr="Code source" data-en="Source code">Code source</span></a>
+        </div>
+      </div>
+      <div class="device-wrap">
+        <canvas id="canvas-proj1" class="device-canvas dcanvas-laptop"></canvas>
+      </div>
+    </div>
+
+    <!-- Project 02 — CoJeCo → Phone -->
+    <div class="project-featured reverse" data-aos="fade-up">
+      <div>
+        <div class="project-num t" data-fr="Projet 02" data-en="Project 02">Projet 02</div>
+        <h3 class="project-title t" data-fr="Plateforme CoJeCo" data-en="CoJeCo Platform">Plateforme CoJeCo</h3>
+        <p class="project-desc t"
+          data-fr="Site web complet pour l'association CoJeCo — gestion des ateliers, bénévoles et partenariats institutionnels. Responsive, accessible, full-custom."
+          data-en="Complete website for the CoJeCo association — workshop, volunteer and institutional partnership management. Responsive, accessible, fully custom.">
+          Site web complet pour l'association CoJeCo — gestion des ateliers, bénévoles et partenariats institutionnels. Responsive, accessible, full-custom.
+        </p>
+        <div class="project-stack">
+          <span class="project-tag">React</span><span class="project-tag">Node.js</span>
+          <span class="project-tag">SQL</span><span class="project-tag">cojeco.fr</span>
+        </div>
+        <div class="project-links">
+          <a href="https://cojeco.fr" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> cojeco.fr</a>
+        </div>
+      </div>
+      <div class="device-wrap">
+        <canvas id="canvas-proj2" class="device-canvas dcanvas-phone"></canvas>
+      </div>
+    </div>
+
+    <!-- Project 03 — PhaseShield → Terminal -->
+    <div class="project-featured" data-aos="fade-up">
+      <div>
+        <div class="project-num t" data-fr="Projet 03 — Recherche" data-en="Project 03 — Research">Projet 03 — Recherche</div>
+        <h3 class="project-title">PhaseShield</h3>
+        <p class="project-desc t"
+          data-fr="Framework adversarial pour la protection de la vie privée face à la détection passive humaine via WiFi CSI. 4 algorithmes de perturbation, étude par simulation, open source."
+          data-en="Adversarial framework for privacy protection against passive human detection via WiFi CSI. 4 perturbation algorithms, simulation-based study, open source.">
+          Framework adversarial pour la protection de la vie privée face à la détection passive humaine via WiFi CSI. 4 algorithmes de perturbation, étude par simulation, open source.
+        </p>
+        <div class="project-stack">
+          <span class="project-tag">Python</span><span class="project-tag">WiFi CSI</span>
+          <span class="project-tag">FGSM</span><span class="project-tag">PGD</span><span class="project-tag">cs.CR</span>
+        </div>
+        <div class="project-links">
+          <a href="https://zenodo.org" class="project-link" target="_blank"><i class="fas fa-book"></i> Zenodo</a>
+          <a href="https://hal.science" class="project-link" target="_blank"><i class="fas fa-book"></i> HAL Science</a>
+          <a href="https://github.com/HaidarESBER" class="project-link" target="_blank"><i class="fab fa-github"></i> <span class="t" data-fr="Code" data-en="Code">Code</span></a>
+        </div>
+      </div>
+      <div class="device-wrap">
+        <canvas id="canvas-proj3" class="device-canvas dcanvas-laptop"></canvas>
+      </div>
+    </div>
+
+    <!-- Smaller project cards -->
+    <div class="projects-grid" data-aos="fade-up">
+      <div class="project-card">
+        <div class="pc-num t" data-fr="Projet 04" data-en="Project 04">Projet 04</div>
+        <div class="pc-title t" data-fr="Migration Laboccaz" data-en="Laboccaz Migration">Migration Laboccaz</div>
+        <div class="pc-desc t" data-fr="Migration Bubble IO → code conventionnel. Nouvelles fonctionnalités et site vitrine." data-en="Bubble IO to conventional code migration. New features and showcase website.">Migration Bubble IO → code conventionnel. Nouvelles fonctionnalités et site vitrine.</div>
+        <div class="pc-tags"><span class="pc-tag">Bubble IO</span><span class="pc-tag">Fullstack</span></div>
+      </div>
+      <div class="project-card">
+        <div class="pc-num t" data-fr="Projet 05" data-en="Project 05">Projet 05</div>
+        <div class="pc-title t" data-fr="Supervision Réseau" data-en="Network Monitoring">Supervision Réseau</div>
+        <div class="pc-desc t" data-fr="Infrastructure simulée : Zabbix + OpenVPN, Active Directory, monitoring temps réel." data-en="Simulated infrastructure: Zabbix + OpenVPN, Active Directory, real-time monitoring.">Infrastructure simulée : Zabbix + OpenVPN, Active Directory, monitoring temps réel.</div>
+        <div class="pc-tags"><span class="pc-tag">Zabbix</span><span class="pc-tag">OpenVPN</span><span class="pc-tag">Linux</span></div>
+      </div>
+      <div class="project-card">
+        <div class="pc-num t" data-fr="Projet 06" data-en="Project 06">Projet 06</div>
+        <div class="pc-title t" data-fr="Réservation de Salles" data-en="Room Booking System">Réservation de Salles</div>
+        <div class="pc-desc t" data-fr="Plateforme complète avec analyse UML/Merise, backend PHP, base SQL Server." data-en="Full platform with UML/Merise analysis, PHP backend and SQL Server database.">Plateforme complète avec analyse UML/Merise, backend PHP, base SQL Server.</div>
+        <div class="pc-tags"><span class="pc-tag">PHP</span><span class="pc-tag">SQL Server</span><span class="pc-tag">UML</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" class="alt-bg">
+  <div class="container">
+    <div class="section-eyebrow t" data-fr="Certifications" data-en="Certifications" data-aos="fade-up">Certifications</div>
+    <h2 class="section-title" data-aos="fade-up"><span class="t" data-fr="Reconnaissance" data-en="Professional">Reconnaissance</span> <span class="t" data-fr="professionnelle" data-en="credentials">professionnelle</span></h2>
+    <div class="section-rule" data-aos="fade-up"></div>
+    <div class="cert-groups">
+      <div class="cert-group" data-aos="fade-up" data-aos-delay="0">
+        <div class="cert-group-header">
+          <div class="cert-group-logo" style="background:#1ba0d7;color:#fff;font-weight:700;font-size:.75rem;font-family:var(--mono)">CI</div>
+          <div><div class="cert-group-name">Cisco</div><div class="cert-group-sub">Networking Academy</div></div>
+        </div>
+        <div class="cert-list">
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Certified Ethical Hacker</div>
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Introduction to Cybersecurity</div>
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Introduction to Modern AI</div>
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Introduction to Data Science</div>
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> IT Essentials</div>
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> JavaScript Essentials</div>
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Python Essentials</div>
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> + 7 autres</div>
+        </div>
+      </div>
+      <div class="cert-group" data-aos="fade-up" data-aos-delay="80">
+        <div class="cert-group-header">
+          <div class="cert-group-logo"><img src="https://logo.clearbit.com/nasa.gov" alt="NASA" onerror="this.parentElement.innerHTML='🚀'"></div>
+          <div><div class="cert-group-name">NASA</div><div class="cert-group-sub">Open Science</div></div>
+        </div>
+        <div class="cert-list">
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Open Science Essentials</div>
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Science 101</div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <div class="cert-group-header" style="border:none;padding:0;margin:0">
+            <div class="cert-group-logo"><img src="https://logo.clearbit.com/aws.amazon.com" alt="AWS" onerror="this.parentElement.innerHTML='☁️'"></div>
+            <div><div class="cert-group-name">AWS Educate</div><div class="cert-group-sub">Amazon Web Services</div></div>
+          </div>
+          <div class="cert-list" style="margin-top:.8rem">
+            <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Introduction to Generative AI</div>
+          </div>
+        </div>
+      </div>
+      <div class="cert-group" data-aos="fade-up" data-aos-delay="160">
+        <div class="cert-group-header">
+          <div class="cert-group-logo"><img src="https://logo.clearbit.com/lvmh.com" alt="LVMH" onerror="this.parentElement.innerHTML='💎'"></div>
+          <div><div class="cert-group-name">LVMH</div><div class="cert-group-sub">2025</div></div>
+        </div>
+        <div class="cert-list">
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Création & Branding</div>
+          <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Retail & Expérience Client</div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <div class="cert-group-header" style="border:none;padding:0;margin:0">
+            <div class="cert-group-logo" style="background:var(--surface2);border:1px solid var(--border)">
+              <img src="https://cdn.simpleicons.org/arduino/00979d" alt="Arduino" style="background:transparent;padding:0">
+            </div>
+            <div><div class="cert-group-name">Arduino & EFSET</div><div class="cert-group-sub">Robotique & Langue</div></div>
+          </div>
+          <div class="cert-list" style="margin-top:.8rem">
+            <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> Arduino UNO Robotics</div>
+            <div class="cert-item"><i class="fas fa-check-circle cert-check"></i> EFSET English C2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <div class="section-eyebrow t" data-fr="Recherche" data-en="Research" data-aos="fade-up">Recherche</div>
+    <h2 class="section-title" data-aos="fade-up"><span class="t" data-fr="Publications" data-en="Publications">Publications</span> <span style="color:var(--accent)">&amp;</span> <span class="t" data-fr="travaux" data-en="work">travaux</span></h2>
+    <div class="section-rule" data-aos="fade-up"></div>
+    <div class="pub-card" data-aos="fade-up">
+      <div class="pub-type"><div class="pub-dot"></div> Preprint · 2026 · Zenodo + HAL</div>
+      <h3 class="pub-title">PhaseShield: Adversarial Perturbation of WiFi Channel State Information for Privacy-Preserving Passive Sensing Mitigation</h3>
+      <div class="pub-authors">Esber, Haidar</div>
+      <p class="pub-abstract t"
+        data-fr="Framework adversarial pour la protection de la vie privée contre la détection passive humaine via WiFi CSI. En introduisant des perturbations ciblées dans le signal OFDM, le framework neutralise la détection passive tout en maintenant la connectivité réseau. Étude par simulation, 4 algorithmes (FGSM, PGD, Random, Subcarrier), open source."
+        data-en="Adversarial framework for protecting privacy against passive human detection via WiFi CSI. By introducing targeted perturbations into the OFDM signal, the framework neutralizes passive detection while maintaining network connectivity. Simulation-based study, 4 algorithms (FGSM, PGD, Random, Subcarrier), open source.">
+        Framework adversarial pour la protection de la vie privée contre la détection passive humaine via WiFi CSI. En introduisant des perturbations ciblées dans le signal OFDM, le framework neutralise la détection passive tout en maintenant la connectivité réseau. Étude par simulation, 4 algorithmes (FGSM, PGD, Random, Subcarrier), open source.
+      </p>
+      <div class="pub-keywords">
+        <span class="pub-kw">WiFi sensing</span><span class="pub-kw">CSI privacy</span>
+        <span class="pub-kw">OFDM</span><span class="pub-kw">Adversarial perturbation</span>
+        <span class="pub-kw">Physical layer security</span><span class="pub-kw">IEEE 802.11</span>
+        <span class="pub-kw">FGSM</span><span class="pub-kw">PGD</span>
+      </div>
+      <div class="pub-links">
+        <a href="https://zenodo.org" target="_blank" class="pub-link"><i class="fas fa-external-link-alt"></i> Zenodo</a>
+        <a href="https://hal.science" target="_blank" class="pub-link"><i class="fas fa-external-link-alt"></i> HAL Science</a>
+        <a href="https://github.com/HaidarESBER" target="_blank" class="pub-link"><i class="fab fa-github"></i> <span class="t" data-fr="Code source" data-en="Source code">Code source</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COJECO -->
+<section id="cojeco" class="alt-bg">
+  <div class="container">
+    <div class="section-eyebrow t" data-fr="Association" data-en="Association" data-aos="fade-up">Association</div>
+    <h2 class="section-title" data-aos="fade-up"><span style="color:var(--accent2)">CoJeCo</span></h2>
+    <div class="section-rule" data-aos="fade-up"></div>
+    <div class="cojeco-grid">
+      <div data-aos="fade-right">
+        <div class="cojeco-title t" data-fr="Éducation numérique pour tous" data-en="Digital education for everyone">Éducation numérique pour tous</div>
+        <div class="cojeco-sub t" data-fr="// Fondateur & Président · mai 2025 — présent" data-en="// Founder & President · May 2025 — present">// Fondateur & Président · mai 2025 — présent</div>
+        <p class="cojeco-desc t"
+          data-fr="CoJeCo est une association loi 1901 dédiée à rendre l'éducation et l'inclusion numérique accessibles à tous. Basée à Angers, elle organise des ateliers tech, forme des bénévoles et tisse des partenariats avec des acteurs majeurs du numérique."
+          data-en="CoJeCo is a non-profit association dedicated to making digital education and inclusion accessible to all. Based in Angers, it organizes tech workshops, trains volunteers and builds partnerships with major digital players.">
+          CoJeCo est une association loi 1901 dédiée à rendre l'éducation et l'inclusion numérique accessibles à tous. Basée à Angers, elle organise des ateliers tech, forme des bénévoles et tisse des partenariats avec des acteurs majeurs du numérique.
+        </p>
+        <div class="cojeco-meta">
+          <div class="cojeco-meta-item"><i class="fas fa-globe"></i> cojeco.fr</div>
+          <div class="cojeco-meta-item"><i class="fas fa-id-card"></i> SIREN : 988 619 979</div>
+          <div class="cojeco-meta-item"><i class="fas fa-file-contract"></i> RNA : W491022051</div>
+          <div class="cojeco-meta-item"><i class="fas fa-map-marker-alt"></i> Angers, France</div>
+        </div>
+        <a href="https://cojeco.fr" target="_blank" rel="noopener" class="btn btn-outline"><i class="fas fa-external-link-alt"></i> <span class="t" data-fr="Visiter cojeco.fr" data-en="Visit cojeco.fr">Visiter cojeco.fr</span></a>
+      </div>
+      <div data-aos="fade-left" data-aos-delay="100">
+        <div class="partners-box">
+          <div class="partners-label t" data-fr="Partenaires institutionnels" data-en="Institutional partners">Partenaires institutionnels</div>
+          <div class="partners-list">
+            <div class="partner-item">
+              <div class="partner-logo-wrap"><img src="https://logo.clearbit.com/cisco.com" alt="Cisco" onerror="this.parentElement.innerHTML='🔵'"></div>
+              <span class="partner-name">Cisco Networking Academy</span>
+            </div>
+            <div class="partner-item">
+              <div class="partner-logo-wrap"><img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft" onerror="this.parentElement.innerHTML='🪟'"></div>
+              <span class="partner-name">Microsoft</span>
+            </div>
+            <div class="partner-item">
+              <div class="partner-logo-wrap"><img src="https://logo.clearbit.com/lpi.org" alt="LPI" onerror="this.parentElement.innerHTML='🐧'"></div>
+              <span class="partner-name">LPI — Linux Professional Institute</span>
+            </div>
+            <div class="partner-item">
+              <div class="partner-logo-wrap"><img src="https://logo.clearbit.com/paloaltonetworks.com" alt="Palo Alto" onerror="this.parentElement.innerHTML='🔐'"></div>
+              <span class="partner-name">Palo Alto Networks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div data-aos="fade-right">
+        <div class="section-eyebrow t" data-fr="Contact" data-en="Contact">Contact</div>
+        <h2 class="contact-heading t" data-fr="Travaillons<br>ensemble" data-en="Let's work<br>together">Travaillons<br>ensemble</h2>
+        <p class="contact-sub t"
+          data-fr="Missions freelance, alternances, collaborations de recherche ou simplement un échange technique."
+          data-en="Freelance missions, apprenticeships, research collaborations or just a good technical conversation.">
+          Missions freelance, alternances, collaborations de recherche ou simplement un échange technique.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:haidarchreif@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> haidarchreif@gmail.com</a>
+          <a href="tel:+33749033679" class="contact-link"><i class="fas fa-phone"></i> +33 7 49 03 36 79</a>
+          <a href="https://linkedin.com/in/haidaresber" target="_blank" class="contact-link"><i class="fab fa-linkedin"></i> linkedin.com/in/haidaresber</a>
+          <a href="https://github.com/HaidarESBER" target="_blank" class="contact-link"><i class="fab fa-github"></i> github.com/HaidarESBER</a>
+          <span class="contact-link"><i class="fas fa-map-marker-alt"></i> Vannes, France</span>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="handleForm(event)" data-aos="fade-left" data-aos-delay="100">
+        <div class="form-group">
+          <label class="t" data-fr="Nom" data-en="Name">Nom</label>
+          <input type="text" class="t-placeholder" data-fr="Jean Dupont" data-en="John Smith" placeholder="Jean Dupont" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="jean@exemple.fr" required>
+        </div>
+        <div class="form-group">
+          <label class="t" data-fr="Message" data-en="Message">Message</label>
+          <textarea class="t-placeholder" data-fr="Votre message..." data-en="Your message..." placeholder="Votre message..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> <span class="t" data-fr="Envoyer" data-en="Send">Envoyer</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">© 2026 <span>Haidar Esber</span> · Vannes, France</div>
+    <div class="footer-links">
+      <a href="https://github.com/HaidarESBER" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/haidaresber" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="mailto:haidarchreif@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://cojeco.fr" target="_blank"><i class="fas fa-globe"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+// ===== AOS =====
+AOS.init({ duration:700, easing:'ease-out-cubic', once:true, offset:60 });
+</script>
+
+<script src="./three.min.js"></script>
+<script src="./GLTFLoader.js"></script>
+<script src="./DRACOLoader.js"></script>
+<script src="./RoomEnvironment.js"></script>
+<script>
+// ===== 3D DEVICE SCENES =====
+(function(){
+  if(!window.THREE) return;
+
+  /* ── Renderer ── */
+  function makeRenderer(canvas){
+    const W = canvas.parentElement.offsetWidth || 400;
+    const H = canvas.offsetHeight || 390;
+    const r = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+    r.setPixelRatio(Math.min(devicePixelRatio,2));
+    r.setSize(W, H);
+    r.toneMapping = THREE.ACESFilmicToneMapping;
+    r.toneMappingExposure = 0.9;
+    r.outputEncoding = THREE.sRGBEncoding;
+    r.shadowMap.enabled = true;
+    let env = null;
+    if(THREE.RoomEnvironment){
+      try{
+        const pm = new THREE.PMREMGenerator(r);
+        pm.compileEquirectangularShader();
+        env = pm.fromScene(new THREE.RoomEnvironment(), 0.04).texture;
+      }catch(e){}
+    }
+    return {r, env, W, H};
+  }
+
+  /* ── Lighting ── */
+  function addLights(scene, env){
+    if(env) scene.environment = env;
+    scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+    const key = new THREE.DirectionalLight(0xfff0e8, 1.8);
+    key.position.set(3, 5, 4); key.castShadow = true; scene.add(key);
+    const fill = new THREE.DirectionalLight(0x8888ff, 0.6);
+    fill.position.set(-4, 2, -3); scene.add(fill);
+    const rim = new THREE.DirectionalLight(0x00ffcc, 0.35);
+    rim.position.set(0, 3, -5); scene.add(rim);
+  }
+
+  /* ── Screen canvas texture ── */
+  function makeScreenTex(drawFn, w, h){
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const ctx = c.getContext('2d');
+    drawFn(ctx, w, h);
+    const tex = new THREE.CanvasTexture(c);
+    tex.encoding = THREE.sRGBEncoding;
+    return tex;
+  }
+
+  /* ── Draw: code editor (for MacBook) ── */
+  function drawCode(ctx, W, H, lines, accent){
+    // background
+    ctx.fillStyle = '#0d1117'; ctx.fillRect(0,0,W,H);
+    // title bar
+    ctx.fillStyle = '#161b22'; ctx.fillRect(0,0,W,28);
+    ['#ff5f56','#ffbd2e','#27c93f'].forEach((c,i)=>{
+      ctx.beginPath(); ctx.arc(14+i*20, 14, 5, 0, Math.PI*2);
+      ctx.fillStyle=c; ctx.fill();
+    });
+    ctx.fillStyle='#8b949e'; ctx.font='11px monospace';
+    ctx.fillText('● portfolio — zsh', W/2-60, 19);
+    // gutter
+    ctx.fillStyle='#161b22'; ctx.fillRect(0,28,36,H-28);
+    // code lines
+    const syntax = {kw:'#ff7b72',fn:'#d2a8ff',str:'#a5d6ff',cm:'#6e7681',pl:'#79c0ff',op:'#f2cc60',def:'#ffa657'};
+    lines.forEach((l,i)=>{
+      const y = 46 + i*18;
+      if(y > H-10) return;
+      ctx.fillStyle='#30363d'; ctx.font='10px monospace';
+      ctx.fillText(String(i+1).padStart(2,' '), 6, y);
+      let x = 44;
+      l.forEach(([col,txt])=>{
+        ctx.fillStyle = syntax[col]||col;
+        ctx.font = '11px monospace';
+        ctx.fillText(txt, x, y);
+        x += ctx.measureText(txt).width;
+      });
+    });
+    // cursor blink position
+    ctx.fillStyle = accent+'99';
+    ctx.fillRect(44, 46 + lines.length*18 - 14, 7, 14);
+  }
+
+  /* ── Draw: phone UI ── */
+  function drawPhoneUI(ctx, W, H, title, color, items){
+    // bg gradient
+    const g = ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#0a0a0f'); g.addColorStop(1,'#0f0f1a');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    // status bar
+    ctx.fillStyle='#ffffff22'; ctx.fillRect(0,0,W,24);
+    ctx.fillStyle='#fff'; ctx.font='bold 10px sans-serif';
+    ctx.fillText('9:41',12,16);
+    ctx.fillText('●●●●  WiFi  100%', W-90, 16);
+    // header
+    const hg = ctx.createLinearGradient(0,24,0,90);
+    hg.addColorStop(0,color+'33'); hg.addColorStop(1,'transparent');
+    ctx.fillStyle=hg; ctx.fillRect(0,24,W,66);
+    ctx.fillStyle=color; ctx.font='bold 16px sans-serif';
+    ctx.fillText(title, 16, 52);
+    ctx.fillStyle='#ffffff88'; ctx.font='11px sans-serif';
+    ctx.fillText('Active session', 16, 68);
+    // cards
+    items.forEach(({label,val,sub},i)=>{
+      const y = 100 + i*72;
+      ctx.fillStyle='#ffffff0d';
+      roundRect(ctx, 12, y, W-24, 60, 10);
+      ctx.fill();
+      ctx.fillStyle=color; ctx.font='bold 13px sans-serif';
+      ctx.fillText(val, 24, y+22);
+      ctx.fillStyle='#ffffff99'; ctx.font='10px sans-serif';
+      ctx.fillText(label, 24, y+38);
+      ctx.fillStyle='#ffffff44'; ctx.font='10px sans-serif';
+      ctx.fillText(sub, 24, y+52);
+      // sparkline
+      ctx.strokeStyle=color+'88'; ctx.lineWidth=1.5;
+      ctx.beginPath();
+      for(let j=0;j<8;j++){
+        const px=W-60+j*7, py=y+30+Math.sin(j*0.9+i)*10;
+        j===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+    });
+    // nav bar
+    ctx.fillStyle='#ffffff11'; ctx.fillRect(0,H-56,W,56);
+    ['⌂','⊙','♡','⊞'].forEach((ic,i)=>{
+      ctx.fillStyle = i===0?color:'#ffffff44';
+      ctx.font='20px sans-serif';
+      ctx.fillText(ic, 20+i*(W-40)/3, H-22);
+    });
+  }
+
+  function roundRect(ctx,x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
+    ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+    ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r);
+    ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r);
+    ctx.closePath();
+  }
+
+  /* ── Build MacBook ── */
+  function buildMacBook(screenTex){
+    const g = new THREE.Group();
+    const alumMat = new THREE.MeshStandardMaterial({color:0x2a2a2e, metalness:0.92, roughness:0.18});
+    const darkMat = new THREE.MeshStandardMaterial({color:0x1a1a1c, metalness:0.7, roughness:0.4});
+
+    // Base (keyboard body)
+    const base = new THREE.Mesh(new THREE.BoxGeometry(2.8,0.08,1.9), alumMat);
+    base.position.set(0,-0.04,0.06); base.castShadow=true; g.add(base);
+
+    // Keyboard area (inset)
+    const kb = new THREE.Mesh(new THREE.BoxGeometry(2.4,0.005,1.3), darkMat);
+    kb.position.set(0,0.003,-0.12); g.add(kb);
+
+    // Keyboard rows (subtle canvas texture)
+    const kbCanv = document.createElement('canvas'); kbCanv.width=480; kbCanv.height=260;
+    const kctx = kbCanv.getContext('2d');
+    kctx.fillStyle='#1a1a1c'; kctx.fillRect(0,0,480,260);
+    const rows=[[0,4],[1,14],[2,14],[3,13],[4,12]];
+    rows.forEach(([ri,count],rowIdx)=>{
+      for(let ci=0;ci<count;ci++){
+        const x=24+ci*33+(rowIdx>0?rowIdx*4:0), y=14+rowIdx*46;
+        kctx.fillStyle='#2c2c30';
+        kctx.beginPath(); kctx.roundRect(x,y,28,38,4); kctx.fill();
+        kctx.fillStyle='#ffffff22'; kctx.font='9px sans-serif'; kctx.textAlign='center';
+        // key labels
+        const labels=['qwertyuiopasdfghjklzxcvbnm'.split('')];
+        if(ci<10&&rowIdx>0&&rowIdx<4){
+          kctx.fillText('qwertyuiopasdfghjklzxcvbnm'[(rowIdx-1)*10+ci]||'', x+14, y+24);
+        }
+      }
+    });
+    // spacebar
+    kctx.fillStyle='#2c2c30';
+    kctx.beginPath(); kctx.roundRect(120,238,240,28,4); kctx.fill();
+    const kbTex = new THREE.CanvasTexture(kbCanv);
+    const kbPlane = new THREE.Mesh(new THREE.PlaneGeometry(2.4,1.3),
+      new THREE.MeshStandardMaterial({map:kbTex, roughness:0.9, metalness:0.0}));
+    kbPlane.rotation.x=-Math.PI/2; kbPlane.position.set(0,0.004,-0.12); g.add(kbPlane);
+
+    // Trackpad
+    const tp = new THREE.Mesh(new THREE.BoxGeometry(0.7,0.004,0.44),
+      new THREE.MeshStandardMaterial({color:0x242428, metalness:0.5, roughness:0.3}));
+    tp.position.set(0,0.003,0.74); g.add(tp);
+
+    // Hinge
+    const hinge = new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.04,2.6,16),
+      new THREE.MeshStandardMaterial({color:0x222226, metalness:0.95, roughness:0.1}));
+    hinge.rotation.z=Math.PI/2; hinge.position.set(0,0.0,-0.87); g.add(hinge);
+
+    // Lid group — open at ~110°
+    const lid = new THREE.Group();
+    lid.position.set(0,0,-0.87);
+    g.add(lid);
+
+    // Lid shell
+    const lidBody = new THREE.Mesh(new THREE.BoxGeometry(2.8,0.06,1.9), alumMat);
+    lidBody.position.set(0,0.975,0.87); lidBody.castShadow=true; lid.add(lidBody);
+
+    // Screen bezel (inner dark frame)
+    const bezel = new THREE.Mesh(new THREE.BoxGeometry(2.56,0.01,1.7),
+      new THREE.MeshStandardMaterial({color:0x080808, roughness:0.9, metalness:0.0}));
+    bezel.position.set(0,1.005,0.87); lid.add(bezel);
+
+    // Screen plane
+    const screen = new THREE.Mesh(new THREE.PlaneGeometry(2.4,1.52),
+      new THREE.MeshStandardMaterial({map:screenTex, emissive:0xffffff, emissiveMap:screenTex, emissiveIntensity:0.6, roughness:1, metalness:0}));
+    screen.position.set(0,1.007,0.87); lid.add(screen);
+
+    // Apple logo (simple circle)
+    const logo = new THREE.Mesh(new THREE.CircleGeometry(0.12,32),
+      new THREE.MeshStandardMaterial({color:0x3a3a3e, metalness:0.9, roughness:0.2}));
+    logo.position.set(0,0.973,0.02); logo.rotation.x=Math.PI; lid.add(logo);
+
+    // Rotate lid open ~110deg (pivot at hinge = y=0 local, z=0 local)
+    lid.rotation.x = -Math.PI * 0.63;
+
+    // Notch / chamfer edges (subtle)
+    g.position.y = 0.04;
+    return g;
+  }
+
+  /* ── Build iPhone ── */
+  function buildPhone(screenTex){
+    const g = new THREE.Group();
+    const bodyMat = new THREE.MeshStandardMaterial({color:0x1a1a1e, metalness:0.88, roughness:0.12});
+    const frameMat = new THREE.MeshStandardMaterial({color:0x2a2a2e, metalness:0.95, roughness:0.08});
+
+    // Body
+    const body = new THREE.Mesh(new THREE.BoxGeometry(0.75,1.62,0.082), bodyMat);
+    body.castShadow=true; g.add(body);
+
+    // Frame edges (4 thin bars)
+    [[0.75,1.62,0.01,0,0,0.046],[0.75,1.62,0.01,0,0,-0.046],
+     [0.01,1.62,0.082,0.38,0,0],[0.01,1.62,0.082,-0.38,0,0]].forEach(([w,h,d,x,y,z])=>{
+      const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),frameMat);
+      m.position.set(x,y,z); g.add(m);
+    });
+
+    // Screen
+    const screen = new THREE.Mesh(new THREE.PlaneGeometry(0.68,1.48),
+      new THREE.MeshStandardMaterial({map:screenTex, emissive:0xffffff, emissiveMap:screenTex, emissiveIntensity:0.7, roughness:1, metalness:0}));
+    screen.position.set(0,0,0.042); g.add(screen);
+
+    // Dynamic island
+    const di = new THREE.Mesh(new THREE.CapsuleGeometry?
+      new THREE.CapsuleGeometry(0.018,0.06,8,8) :
+      new THREE.CylinderGeometry(0.018,0.018,0.06,16),
+      new THREE.MeshStandardMaterial({color:0x000000, roughness:0.5}));
+    di.rotation.z=Math.PI/2; di.position.set(0,0.67,0.043); g.add(di);
+
+    // Side buttons
+    const btnMat = new THREE.MeshStandardMaterial({color:0x28282e, metalness:0.95, roughness:0.1});
+    [[0.01,0.08,0.03,0.386,0.2,0],[0.01,0.08,0.03,0.386,0.08,0],
+     [0.01,0.14,0.03,-0.386,0.1,0]].forEach(([w,h,d,x,y,z])=>{
+       const b=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),btnMat);
+       b.position.set(x,y,z); g.add(b);
+     });
+
+    // Camera bump
+    const cam = new THREE.Mesh(new THREE.BoxGeometry(0.22,0.22,0.02),
+      new THREE.MeshStandardMaterial({color:0x111115, metalness:0.9, roughness:0.1}));
+    cam.position.set(0.14,-0.58,-0.05); g.add(cam);
+    [[-0.04,-0.04],[ 0.04,-0.04],[-0.04,0.04]].forEach(([ox,oy])=>{
+      const lens=new THREE.Mesh(new THREE.CircleGeometry(0.028,16),
+        new THREE.MeshStandardMaterial({color:0x080808, metalness:0.3, roughness:0.1}));
+      lens.position.set(0.14+ox,-0.58+oy,-0.038); g.add(lens);
+    });
+
+    return g;
+  }
+
+  /* ── Scene factory ── */
+  function initScene(canvasId, buildFn, camPos, lookAtY, baseRY, isPhone){
+    const canvas = document.getElementById(canvasId);
+    if(!canvas) return;
+    const {r:renderer, env, W, H} = makeRenderer(canvas);
+    renderer.setSize(canvas.parentElement.offsetWidth||400, canvas.offsetHeight||390);
+    const scene = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(38, (canvas.parentElement.offsetWidth||400)/(canvas.offsetHeight||390), 0.01, 50);
+    cam.position.set(...camPos); cam.lookAt(0, lookAtY, 0);
+    addLights(scene, env);
+    const model = buildFn();
+    model.rotation.y = baseRY;
+    scene.add(model);
+    canvas.parentElement.classList.add('loaded');
+    return {renderer, scene, cam, model, baseRY, isPhone};
+  }
+
+  /* ── Screen content ── */
+  const macTex1 = makeScreenTex((ctx,W,H)=> drawCode(ctx,W,H,[
+    [['kw','import '],['fn','{'],['pl','useState'],['fn',','],['pl','useEffect'],['fn','}']],
+    [['kw','import '],['pl','SearchEngine'],['kw',' from '],['str',"'./core'"]],
+    [['cm','// Ethical AI — no tracking, no bias']],
+    [['def','const '],['fn','App'],['op',' = '],['fn','() => '],['fn','{']],
+    [['def','  const '],['fn','[query, setQuery]'],['op',' = '],['kw','useState'],['fn','('],['str',"''"],['fn',')']],
+    [['def','  const '],['fn','[results, setResults]'],['op',' = '],['kw','useState'],['fn','([])']],
+    [['kw','  async function '],['fn','search'],['fn','(q) {']],
+    [['def','    const '],['fn','res'],['op',' = '],['kw','await '],['fn','SearchEngine.query(q)']],
+    [['fn','    setResults'],['fn','(res.filter('],['fn','r'],['op',' => '],['fn','r.ethical'],['fn','))']],
+    [['fn','  }']],
+    [['kw','  return '],['fn','<SearchUI query={query} results={results} />']],
+  ],'#58a6ff'), 640, 400);
+
+  const macTex3 = makeScreenTex((ctx,W,H)=> drawCode(ctx,W,H,[
+    [['cm','# PhaseShield — WiFi CSI adversarial']],
+    [['kw','import '],['pl','numpy '],['kw','as '],['fn','np']],
+    [['kw','import '],['pl','phaseshield '],['kw','as '],['fn','ps']],
+    [['def','csi_data '],['op','= '],['fn','capture_csi'],['fn','(interface='],['str','"wlan0"'],['fn',')']],
+    [['def','shield '],['op','= '],['fn','ps.AdversarialLayer'],['fn','(']],
+    [['str','    mode='],['pl','"phase_noise"'],['fn',', epsilon='],['op','0.05']],
+    [['fn',')']],
+    [['def','protected '],['op','= '],['fn','shield.apply'],['fn','(csi_data)']],
+    [['cm','# Detection accuracy dropped: 94% → 12%']],
+    [['fn','print'],['fn','('],['str','"PhaseShield active ✓"'],['fn',')']],
+    [['kw','assert '],['fn','ps.verify_protection'],['fn','(protected) ']],
+  ],'#7ee787'), 640, 400);
+
+  const phoneTex = makeScreenTex((ctx,W,H)=> drawPhoneUI(ctx,W,H,
+    'CoJeCo', '#58a6ff',
+    [{label:'Members connected',val:'1,247',sub:'↑ 23 this week'},
+     {label:'Workshops done',val:'84',sub:'Digital inclusion'},
+     {label:'Impact score',val:'98.2%',sub:'Positive feedback'}]
+  ), 390, 844);
+
+  /* ── Init all three ── */
+  let tmx=0,tmy=0,smx=0,smy=0;
+  document.addEventListener('mousemove',e=>{
+    tmx=(e.clientX/innerWidth-.5)*2;
+    tmy=(e.clientY/innerHeight-.5)*2;
+  });
+
+  const scenes = [
+    initScene('canvas-proj1', ()=>buildMacBook(macTex1), [0,0.5,4.0], 0.3, 0.18, false),
+    initScene('canvas-proj2', ()=>buildPhone(phoneTex),  [0,0,3.2],   0,   0,    true),
+    initScene('canvas-proj3', ()=>buildMacBook(macTex3), [0,0.5,4.0], 0.3, -0.18,false),
+  ].filter(Boolean);
+
+  function loop(ts){
+    requestAnimationFrame(loop);
+    const t = ts*.001;
+    smx += (tmx-smx)*.05; smy += (tmy-smy)*.05;
+    scenes.forEach(({renderer,scene,cam,model,baseRY,isPhone})=>{
+      const rect = renderer.domElement.getBoundingClientRect();
+      if(rect.bottom<-100||rect.top>innerHeight+100) return;
+      const ty = baseRY + smx*0.3 + Math.sin(t*(isPhone?.5:.35))*0.04;
+      const tx = -smy*0.1;
+      model.rotation.y += (ty-model.rotation.y)*.06;
+      model.rotation.x += (tx-model.rotation.x)*.06;
+      if(isPhone) model.position.y = Math.sin(t*.8)*.08;
+      renderer.render(scene,cam);
+    });
+  }
+  requestAnimationFrame(loop);
+
+  window.addEventListener('resize',()=>{
+    scenes.forEach(({renderer,cam})=>{
+      const el=renderer.domElement;
+      const W=el.parentElement?.offsetWidth||400;
+      const H=el.offsetHeight||390;
+      renderer.setSize(W,H,false);
+      cam.aspect=W/H; cam.updateProjectionMatrix();
+    });
+  });
+})();
+</script>
+
+<script>
+// ===== TYPING =====
+(function(){
+  const titlesFr = ["Développeur Fullstack","Chercheur en Cybersécurité","Concepteur d'Applications","Fondateur de CoJeCo"];
+  const titlesEn = ["Fullstack Developer","Cybersecurity Researcher","Application Designer","Founder of CoJeCo"];
+  let ti=0, ci=0, del=false;
+  const el = document.getElementById('typed-text');
+  function getTitles(){ return currentLang==='fr'?titlesFr:titlesEn; }
+  function type(){
+    const titles=getTitles(), cur=titles[ti%titles.length];
+    el.textContent = del ? cur.slice(0,--ci) : cur.slice(0,++ci);
+    let delay = del ? 36 : 72;
+    if(!del && ci===cur.length){ delay=2000; del=true; }
+    else if(del && ci===0){ del=false; ti=(ti+1)%titles.length; delay=350; }
+    setTimeout(type, delay);
+  }
+  setTimeout(type, 1400);
+})();
+
+// ===== NAVBAR =====
+window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50); });
+const toggle = document.getElementById('navToggle'), navLinks = document.getElementById('navLinks');
+toggle.addEventListener('click',()=>{ navLinks.classList.toggle('open'); toggle.classList.toggle('open'); });
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ navLinks.classList.remove('open'); toggle.classList.remove('open'); }));
+
+
+// ===== LANGUAGE =====
+let currentLang = localStorage.getItem('lang') || 'fr';
+function setLang(l){
+  currentLang = l;
+  localStorage.setItem('lang', l);
+  document.documentElement.lang = l;
+  document.querySelectorAll('.t[data-'+l+']').forEach(el=>{ el.innerHTML = el.dataset[l]; });
+  document.querySelectorAll('.t-placeholder[data-'+l+']').forEach(el=>{ el.placeholder = el.dataset[l]; });
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.dataset.lang===l));
+  AOS.refresh();
+}
+if(currentLang==='en') setLang('en');
+
+// ===== FORM =====
+function handleForm(e){
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.innerHTML = '<i class="fas fa-check"></i> '+(currentLang==='fr'?'Envoyé !':'Sent!');
+  btn.style.background = 'var(--accent2)';
+  setTimeout(()=>{ btn.innerHTML='<i class="fas fa-paper-plane"></i> '+(currentLang==='fr'?'Envoyer':'Send'); btn.style.background=''; e.target.reset(); }, 3000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(curl:*)",
+      "Bash(mkdir:*)",
+      "Bash(BASE=\"https://raw.githubusercontent.com/HaidarESBER/haidaresber.github.io/main/Interactive/assets/images/portfolio\")",
+      "Bash(for f:*)",
+      "Bash(do curl:*)",
+      "Bash(echo \"downloaded $f\")",
+      "Bash(done)",
+      "WebSearch",
+      "WebFetch(domain:hamishw.com)",
+      "WebFetch(domain:www.freecodecamp.org)",
+      "WebFetch(domain:www.builtatlightspeed.com)",
+      "WebFetch(domain:tympanus.net)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:dev.to)",
+      "WebFetch(domain:asset-samples.threepipe.org)",
+      "Bash(ls *.glb)",
+      "Bash(python -m http.server 8000)",
+      "Read(//c/Users/haida/pizza3-asset/**)",
+      "WebFetch(domain:codepen.io)",
+      "Bash(echo \"DRACOLoader.js: $?\")",
+      "Bash(echo \"decoder.js: $?\")",
+      "Bash(echo \"wasm: $?\")",
+      "Bash(grep -i \"HTTP\\\\|content-length\" curl -sI \"https://raw.githubusercontent.com/knav33n/3d-mac/main/public/mac.glb\")",
+      "Bash(grep -i \"HTTP\\\\|content-length\" curl -sI \"https://raw.githubusercontent.com/FlorentMasson/Holographic-MacBook/main/public/mac_draco.glb\")",
+      "Bash(grep -i \"HTTP\\\\|content-length\" curl -sI \"https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/macbook/model.gltf\")"
+    ]
+  }
+}
