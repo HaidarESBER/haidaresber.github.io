@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Haidar Esber — Fullstack Developer & Cybersecurity Researcher. Vannes, France." />
+  <meta name="author" content="Haidar Esber" />
+  <meta property="og:title" content="Haidar Esber — Fullstack Developer & Researcher" />
+  <meta property="og:description" content="I build systems — from the web down to the physical layer." />
+  <meta property="og:type" content="website" />
+  <title>Haidar Esber — Fullstack Developer & Researcher</title>
+  <link rel="icon" type="image/png" href="./images/logos-circle.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- ===== PRELOADER ===== -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <div class="preloader__name">HAIDAR ESBER</div>
+      <div class="preloader__bar"><span class="preloader__bar-fill" id="preloaderFill"></span></div>
+      <div class="preloader__count"><span id="preloaderCount">0</span>%</div>
+    </div>
+  </div>
+
+  <!-- ===== CUSTOM CURSOR ===== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- ===== WEBGL BACKGROUND ===== -->
+  <canvas class="webgl" id="webgl"></canvas>
+  <div class="grain"></div>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="nav__logo" data-cursor>HE<span>.</span></a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#about" data-i18n="nav.about" data-cursor>À propos</a>
+      <a href="#work" data-i18n="nav.work" data-cursor>Projets</a>
+      <a href="#research" data-i18n="nav.research" data-cursor>Recherche</a>
+      <a href="#contact" data-i18n="nav.contact" data-cursor>Contact</a>
+    </nav>
+    <div class="nav__right">
+      <div class="lang-switch" id="langSwitch">
+        <button data-lang="fr" class="active" data-cursor>FR</button>
+        <span>/</span>
+        <button data-lang="en" data-cursor>EN</button>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="smooth-content">
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+      <div class="hero__inner">
+        <div class="hero__eyebrow" data-i18n="hero.eyebrow">Vannes, France</div>
+        <h1 class="hero__name" id="heroName" data-i18n="hero.name">Haidar Esber</h1>
+        <div class="hero__role"><span class="hero__role-prefix">&gt;</span> <span id="typed"></span><span class="hero__caret">_</span></div>
+        <p class="hero__tagline" data-i18n="hero.tagline"></p>
+        <div class="hero__cta">
+          <a href="#work" class="btn btn--primary" data-i18n="hero.cta" data-cursor>Voir mes projets</a>
+          <a href="#contact" class="btn btn--ghost" data-i18n="hero.ctaContact" data-cursor>Me contacter</a>
+        </div>
+      </div>
+      <a href="#about" class="hero__scroll" data-cursor>
+        <span data-i18n="hero.scroll">défiler</span>
+        <span class="hero__scroll-line"></span>
+      </a>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="section about" id="about">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="about.eyebrow">À propos</span>
+          <h2 class="section__title" data-i18n="about.title">Développeur &amp; chercheur</h2>
+        </div>
+        <div class="about__grid">
+          <div class="about__text">
+            <p class="about__lead" data-i18n="about.p1"></p>
+            <p data-i18n="about.p2"></p>
+            <div class="about__skills">
+              <span class="label" data-i18n="about.stackLabel">Stack technique</span>
+              <div class="tags" id="skillTags"></div>
+            </div>
+          </div>
+          <aside class="terminal" data-cursor>
+            <div class="terminal__bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="terminal__title">~/haidar — zsh</span>
+            </div>
+            <div class="terminal__body">
+              <div><span class="t-prompt">❯</span> whoami</div>
+              <div class="t-out">Haidar Esber</div>
+              <div><span class="t-prompt">❯</span> cat profile.json</div>
+              <pre class="t-out">{
+  <span class="t-k">"age"</span>: <span class="t-n">24</span>,
+  <span class="t-k">"location"</span>: <span class="t-s">"Vannes, FR"</span>,
+  <span class="t-k">"origin"</span>: <span class="t-s">"Lebanon 🇱🇧"</span>,
+  <span class="t-k">"focus"</span>: <span class="t-s">"fullstack · security · AI"</span>,
+  <span class="t-k">"languages"</span>: <span class="t-s">["FR","EN","AR"]</span>,
+  <span class="t-k">"status"</span>: <span class="t-ok" data-i18n="about.status">Ouvert aux opportunités</span>
+}</pre>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WORK ===== -->
+    <section class="section work" id="work">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="workSection.eyebrow">Projets</span>
+          <h2 class="section__title" data-i18n="workSection.title">Ce que je construis</h2>
+        </div>
+        <div class="work__list" id="workList"></div>
+      </div>
+    </section>
+
+    <!-- ===== RESEARCH (highlight) ===== -->
+    <section class="section research" id="research">
+      <div class="container">
+        <div class="research__card" data-cursor>
+          <span class="eyebrow" data-i18n="researchSection.eyebrow">Recherche</span>
+          <h2 class="research__title" data-i18n="researchSection.title">PhaseShield</h2>
+          <p class="research__subtitle" data-i18n="researchSection.subtitle"></p>
+          <p class="research__body" data-i18n="researchSection.body"></p>
+          <div class="research__stats" id="researchStats"></div>
+          <div class="research__links">
+            <a class="btn btn--ghost" href="https://zenodo.org" target="_blank" rel="noopener" data-cursor>Zenodo ↗</a>
+            <a class="btn btn--ghost" href="https://hal.science" target="_blank" rel="noopener" data-cursor>HAL Science ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EXPERIENCE & EDUCATION ===== -->
+    <section class="section journey" id="journey">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="experienceSection.eyebrow">Parcours</span>
+          <h2 class="section__title" data-i18n="experienceSection.title">Expérience &amp; formation</h2>
+        </div>
+        <div class="journey__grid">
+          <div>
+            <h3 class="journey__label" data-i18n="experienceSection.expLabel">Expérience</h3>
+            <div class="timeline" id="experienceList"></div>
+          </div>
+          <div>
+            <h3 class="journey__label" data-i18n="experienceSection.eduLabel">Formation</h3>
+            <div class="timeline" id="educationList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <span class="eyebrow" data-i18n="contact.eyebrow">Contact</span>
+        <h2 class="contact__title" data-i18n="contact.title">Travaillons ensemble</h2>
+        <p class="contact__body" data-i18n="contact.body"></p>
+        <a class="contact__mail" id="contactMail" href="mailto:haidarchreif@gmail.com" data-cursor>haidarchreif@gmail.com</a>
+        <div class="contact__socials" id="contactSocials"></div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <span class="footer__rights" data-i18n="footer.rights">Conçu &amp; développé par Haidar Esber</span>
+      <span class="footer__year">© <span id="year"></span></span>
+      <a href="#hero" class="footer__back" data-i18n="footer.back" data-cursor>Haut de page ↑</a>
+    </footer>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
