@@ -72,6 +72,11 @@ function boot() {
     document.body.classList.add('room-mode');
     canvasToBody();
     exp.resume();
+    // re-frame for the fullscreen (possibly portrait) viewport
+    if (!exp.isFocused) {
+      exp.camera.position.copy(exp._adapt(exp.foci.home));
+      exp.controls.update();
+    }
     site.classList.add('is-hidden');
     hud.classList.add('is-on');
     if (!hintDismissed && !focusTarget) hint.classList.add('is-on');
@@ -108,8 +113,8 @@ function boot() {
   game.setFacts(arcadeFacts(getLang()));
   exp.arcadeGame = game;
   $('arcadeMount').appendChild(game.canvas);
-  function openArcade() { arcadeOverlay.classList.add('is-on'); game.start(); sfx.click(); }
-  function closeArcade() { arcadeOverlay.classList.remove('is-on'); game.stop(); }
+  function openArcade() { arcadeOverlay.classList.add('is-on'); document.body.classList.add('arcade-open'); game.start(); sfx.click(); }
+  function closeArcade() { arcadeOverlay.classList.remove('is-on'); document.body.classList.remove('arcade-open'); game.stop(); }
   const hold = (id, dir) => {
     const b = $(id);
     const on = (e) => { e.preventDefault(); game.press(dir, true); };
@@ -124,7 +129,7 @@ function boot() {
   // render two warm-up frames into the aperçu, then pause the loop entirely.
   function freezePreview() {
     const f = exp.foci.home;
-    exp.camera.position.copy(f.pos);
+    exp.camera.position.copy(exp._adapt(f));
     exp.controls.target.copy(f.target);
     exp.controls.enabled = false;
     exp.controls.autoRotate = false;
@@ -260,6 +265,7 @@ function boot() {
   const goBack = () => { if (!exp.isMoving && exp.isFocused) { sfx.whoosh(); exp.unfocus(); } };
   backBtn.addEventListener('click', goBack);
   $('panelClose').addEventListener('click', goBack);
+  $('arcadeClose').addEventListener('click', goBack);
   addEventListener('keydown', (e) => {
     if (e.target && e.target.tagName === 'INPUT') { if (e.key === 'Escape') { closeChat(); closeTerm(); } return; }
     if (arcadeOverlay.classList.contains('is-on')) return; // the game owns the keyboard (ESC included)

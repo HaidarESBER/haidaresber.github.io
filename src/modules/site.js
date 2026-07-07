@@ -108,10 +108,19 @@ export function renderSite(lang) {
       </nav>
       <div class="sg-nav-right">
         <div class="lang-switch sg-lang"><button data-lang="fr" data-cursor>FR</button><span>/</span><button data-lang="en" data-cursor>EN</button></div>
-        <button class="sg-btn sg-btn--green" data-enter-room data-cursor>[ ${s.enterRoom} ]</button>
+        <button class="sg-btn sg-btn--green sg-enter-desktop" data-enter-room data-cursor>[ ${s.enterRoom} ]</button>
+        <button class="sg-menu-btn" data-menu aria-expanded="false" aria-label="Menu" data-cursor>[≡]</button>
       </div>
     </div>
   </header>
+
+  <nav class="sg-mmenu" id="sgMenu" aria-label="Menu">
+    <a href="#work" data-cursor><i>01</i>${c.nav.work}</a>
+    <a href="#experience" data-cursor><i>02</i>${s.sections.experience}</a>
+    <a href="#certs" data-cursor><i>03</i>${c.nav.certs}</a>
+    <a href="#contact" data-cursor><i>04</i>${c.nav.contact}</a>
+    <button class="sg-btn sg-btn--green" data-enter-room data-cursor>[ ${s.enterRoom} → ]</button>
+  </nav>
 
   <section id="top" class="sg-hero sg-grid">
     <div class="sg-wrap sg-hero-grid">
@@ -394,12 +403,30 @@ export function initSiteFx(root) {
   if (ghSlot) renderGH(ghSlot);
   // decrypting name + role
   root.querySelectorAll('.sg-scr').forEach((el, i) => scramble(el, 180 + i * 160));
-  // nav links re-decrypt on hover (bound once — survives language re-renders)
+  // nav links re-decrypt on hover; mobile menu toggle (bound once — survives re-renders)
   if (!root.dataset.hovBound) {
     root.dataset.hovBound = '1';
     root.addEventListener('mouseover', (e) => {
       const a = e.target.closest('.sg-nav-links a');
       if (a) scrambleHover(a.querySelector('.sg-hov'));
+    });
+    root.addEventListener('click', (e) => {
+      const menu = root.querySelector('#sgMenu');
+      const btn = root.querySelector('[data-menu]');
+      if (!menu || !btn) return;
+      const closeMenu = () => {
+        menu.classList.remove('is-open');
+        btn.textContent = '[≡]'; btn.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+      };
+      if (e.target.closest('[data-menu]')) {
+        const open = menu.classList.toggle('is-open');
+        btn.textContent = open ? '[×]' : '[≡]';
+        btn.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('menu-open', open);
+        return;
+      }
+      if (e.target.closest('.sg-mmenu a') || e.target.closest('[data-enter-room]')) closeMenu();
     });
   }
   // periodic glitch burst on the name (so touch users see it too)

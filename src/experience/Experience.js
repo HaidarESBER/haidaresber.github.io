@@ -34,6 +34,7 @@ export default class Experience {
     this.isFocused = false;
     this.isMoving = false;
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.isTouch = matchMedia('(pointer: coarse)').matches;
     this._sideOffset = { x: 0 }; // horizontal view offset while the info panel is open
 
     this._initRenderer();
@@ -53,9 +54,12 @@ export default class Experience {
     this._tick();
   }
 
+  // phones pay dearly for the bloom pass — cap their render resolution lower
+  _pr() { return Math.min(devicePixelRatio, this.isTouch ? 1.5 : 2); }
+
   _initRenderer() {
     this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, powerPreference: 'high-performance' });
-    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    this.renderer.setPixelRatio(this._pr());
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.05;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -85,7 +89,7 @@ export default class Experience {
     this.controls.dampingFactor = 0.06;
     this.controls.enablePan = false;
     this.controls.minDistance = 5.5;
-    this.controls.maxDistance = 15;
+    this.controls.maxDistance = this.isTouch ? 26 : 15; // portrait needs room to pull back
     this.controls.minPolarAngle = 0.35;
     this.controls.maxPolarAngle = 1.45;
     this.controls.minAzimuthAngle = 0.15;
@@ -97,7 +101,7 @@ export default class Experience {
 
   _initPost() {
     this.composer = new EffectComposer(this.renderer);
-    this.composer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    this.composer.setPixelRatio(this._pr());
     this.composer.setSize(this._vw(), this._vh());
     this.composer.addPass(new RenderPass(this.scene, this.camera));
     this.bloom = new UnrealBloomPass(new THREE.Vector2(this._vw(), this._vh()), 0.2, 0.45, 0.95);
@@ -111,7 +115,8 @@ export default class Experience {
     this.scene.add(new THREE.AmbientLight(0xffffff, 0.35));
     const key = new THREE.DirectionalLight(0xfff0e0, 2.2);
     key.position.set(5, 9, 6); key.castShadow = true;
-    key.shadow.mapSize.set(2048, 2048); key.shadow.camera.far = 30;
+    const sm = this.isTouch ? 1024 : 2048;
+    key.shadow.mapSize.set(sm, sm); key.shadow.camera.far = 30;
     key.shadow.camera.left = -10; key.shadow.camera.right = 10;
     key.shadow.camera.top = 10; key.shadow.camera.bottom = -10;
     key.shadow.bias = -0.0004;
@@ -223,6 +228,14 @@ export default class Experience {
 
   _dur(d) { return this.reduced ? 0.01 : d; }
 
+  // Portrait screens crop the horizontal FOV badly — back the camera off
+  // proportionally so every focus preset still frames its whole subject.
+  _adapt(f) {
+    const aspect = this._vw() / this._vh();
+    const k = aspect < 0.9 ? Math.min(1.9, 1 + (0.9 - aspect) * 1.5) : 1;
+    return f.target.clone().add(f.pos.clone().sub(f.target).multiplyScalar(k));
+  }
+
   // ---------- Camera focus ----------
   focusKey(key, interactive = null) {
     const f = this.foci[key];
@@ -231,7 +244,8 @@ export default class Experience {
     this._setHover(null, { clientX: 0, clientY: 0 });
     this.isFocused = true; this.isMoving = true;
     this.controls.enabled = false; this.controls.autoRotate = false;
-    gsap.to(this.camera.position, { x: f.pos.x, y: f.pos.y, z: f.pos.z, duration: this._dur(1.3), ease: 'power3.inOut' });
+    const pos = this._adapt(f);
+    gsap.to(this.camera.position, { x: pos.x, y: pos.y, z: pos.z, duration: this._dur(1.3), ease: 'power3.inOut' });
     gsap.to(this.controls.target, {
       x: f.target.x, y: f.target.y, z: f.target.z, duration: this._dur(1.3), ease: 'power3.inOut',
       onUpdate: () => this.controls.update(),
@@ -244,7 +258,8 @@ export default class Experience {
     if (this.onFocusStart) this.onFocusStart(null);
     this.isMoving = true;
     this.setSideOffset(0);
-    gsap.to(this.camera.position, { x: f.pos.x, y: f.pos.y, z: f.pos.z, duration: this._dur(1.2), ease: 'power3.inOut' });
+    const pos = this._adapt(f);
+    gsap.to(this.camera.position, { x: pos.x, y: pos.y, z: pos.z, duration: this._dur(1.2), ease: 'power3.inOut' });
     gsap.to(this.controls.target, {
       x: f.target.x, y: f.target.y, z: f.target.z, duration: this._dur(1.2), ease: 'power3.inOut',
       onUpdate: () => this.controls.update(),
@@ -257,6 +272,7 @@ export default class Experience {
   playIntro(done) {
     const f = this.foci.home;
     this.controls.target.copy(f.target);
+    const pos = this._adapt(f);
     const tl = gsap.timeline({
       onComplete: () => {
         this.controls.enabled = true;
@@ -265,7 +281,7 @@ export default class Experience {
         done && done();
       },
     });
-    tl.to(this.camera.position, { x: f.pos.x, y: f.pos.y, z: f.pos.z, duration: this._dur(2.2), ease: 'power3.inOut', onUpdate: () => this.controls.update() });
+    tl.to(this.camera.position, { x: pos.x, y: pos.y, z: pos.z, duration: this._dur(2.2), ease: 'power3.inOut', onUpdate: () => this.controls.update() });
   }
 
   _resize = () => {
@@ -274,8 +290,8 @@ export default class Experience {
     this.camera.updateProjectionMatrix();
     this._applySideOffset();
     this.renderer.setSize(w, h, false); // CSS owns the display size
-    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    if (this.composer) { this.composer.setSize(w, h); this.composer.setPixelRatio(Math.min(devicePixelRatio, 2)); }
+    this.renderer.setPixelRatio(this._pr());
+    if (this.composer) { this.composer.setSize(w, h); this.composer.setPixelRatio(this._pr()); }
   };
 
   // ---------- Render loop control ----------
