@@ -24,6 +24,8 @@ serviceAccount*.json
 .terraform/
 *.tfstate
 *.tfstate.*
+# Old static site kept locally only (archived at HaidarESBER/old-portfolio)
+legacy/
 # OS / editor
 .DS_Store
 Thumbs.db
