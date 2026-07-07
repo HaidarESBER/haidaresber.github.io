@@ -35,7 +35,7 @@ export default class Experience {
     this.isMoving = false;
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.isTouch = matchMedia('(pointer: coarse)').matches;
-    this._sideOffset = { x: 0 }; // horizontal view offset while the info panel is open
+    this._sideOffset = { x: 0, y: 0 }; // view shift while the info panel is open (x: desktop side panel, y: mobile bottom sheet)
 
     this._initRenderer();
     this._initScene();
@@ -70,7 +70,8 @@ export default class Experience {
   _initScene() {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x0a0c12);
-    this.scene.fog = new THREE.Fog(0x0a0c12, 14, 30);
+    // far plane sits beyond max zoom-out so the room never washes out
+    this.scene.fog = new THREE.Fog(0x0a0c12, 22, 60);
     const pmrem = new THREE.PMREMGenerator(this.renderer);
     this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   }
@@ -216,14 +217,14 @@ export default class Experience {
   // ---------- Panel-aware framing ----------
   // Shifts the rendered view horizontally so the focused object stays centered
   // in the area left visible by the slide-in panel.
-  setSideOffset(px) {
-    gsap.to(this._sideOffset, { x: px, duration: this._dur(1.0), ease: 'power3.inOut', onUpdate: () => this._applySideOffset() });
+  setSideOffset(px, py = 0) {
+    gsap.to(this._sideOffset, { x: px, y: py, duration: this._dur(1.0), ease: 'power3.inOut', onUpdate: () => this._applySideOffset() });
   }
 
   _applySideOffset() {
     const w = this._vw(), h = this._vh();
-    if (Math.abs(this._sideOffset.x) < 1) this.camera.clearViewOffset();
-    else this.camera.setViewOffset(w, h, this._sideOffset.x, 0, w, h);
+    if (Math.abs(this._sideOffset.x) < 1 && Math.abs(this._sideOffset.y) < 1) this.camera.clearViewOffset();
+    else this.camera.setViewOffset(w, h, this._sideOffset.x, this._sideOffset.y, w, h);
   }
 
   _dur(d) { return this.reduced ? 0.01 : d; }
@@ -266,6 +267,29 @@ export default class Experience {
       onComplete: () => { this.isMoving = false; this.isFocused = false; this.controls.enabled = true; },
     });
     if (this.onFocus) this.onFocus(null, null);
+  }
+
+  // Fly in on the little guy for a chat — frames him in the upper half on
+  // portrait screens so the bottom-sheet chatbox never hides him.
+  flyToGuy() {
+    const gp = this.room.guy.pos();
+    const portrait = this._vw() / this._vh() < 0.9;
+    const target = gp.clone(); target.y += portrait ? 0.1 : 0.45;
+    const dir = this.camera.position.clone().sub(gp); dir.y = 0;
+    if (dir.lengthSq() < 0.01) dir.set(1, 0, 1);
+    dir.normalize();
+    const pos = target.clone().addScaledVector(dir, portrait ? 3.1 : 2.4);
+    pos.y += portrait ? 1.15 : 0.75;
+    this._setHover(null, { clientX: 0, clientY: 0 });
+    this.isFocused = true; this.isMoving = true;
+    this.controls.enabled = false; this.controls.autoRotate = false;
+    gsap.to(this.camera.position, { x: pos.x, y: pos.y, z: pos.z, duration: this._dur(1.1), ease: 'power3.inOut' });
+    gsap.to(this.controls.target, {
+      x: target.x, y: target.y, z: target.z, duration: this._dur(1.1), ease: 'power3.inOut',
+      onUpdate: () => this.controls.update(),
+      onComplete: () => { this.isMoving = false; },
+    });
+    return pos;
   }
 
   // ---------- Intro ----------
