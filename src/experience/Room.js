@@ -642,6 +642,7 @@ export function buildRoom() {
     } else if (G.mode === 'sitting') {
       if (G.waveTimer > 0) { // greet from the chair
         G.waveTimer -= dt;
+        if (G.waveTimer <= 0 && G.greeting) G.waveTimer = 2;
         armL.rotation.x = -0.7;
         armR.rotation.x = -2.55;
         armR.rotation.z = Math.sin(t * 10) * 0.4;
@@ -662,7 +663,10 @@ export function buildRoom() {
       headToward(G.waveYaw);
       headGrp.rotation.x = Math.sin(t * 6) * 0.04; // happy little nod
       G.timer -= dt;
-      if (G.timer <= 0) { G.mode = 'idle'; G.timer = G.guide ? 0 : 2 + Math.random() * 2; guyRest(); headGrp.rotation.x = 0; }
+      if (G.timer <= 0) {
+        if (G.greeting) G.timer = 2; // chat is open — keep waving at the visitor
+        else { G.mode = 'idle'; G.timer = G.guide ? 0 : 2 + Math.random() * 2; guyRest(); headGrp.rotation.x = 0; }
+      }
     } else if (G.mode === 'typing') {
       armL.rotation.x = -1.0 + Math.sin(t * 12) * 0.14; // poking at the bench laptop
       armR.rotation.x = -1.0 + Math.sin(t * 12 + 1.7) * 0.14;
@@ -1011,5 +1015,13 @@ export function buildRoom() {
     dust.rotation.y = t * 0.01;
   }
 
-  return { group, screens, interactives, foci, animate, arcadeScreen, teardown, guy: { wave: guyWave, guide: guyGuide }, rubikSolve };
+  return {
+    group, screens, interactives, foci, animate, arcadeScreen, teardown, rubikSolve,
+    guy: {
+      wave: guyWave,
+      guide: guyGuide,
+      pos: () => guy.position.clone(),
+      setGreeting: (on) => { G.greeting = on; },
+    },
+  };
 }

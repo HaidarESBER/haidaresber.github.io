@@ -558,8 +558,8 @@ body.menu-open { overflow: hidden !important; }
   .term { left: 1rem; right: 1rem; width: auto; height: min(380px, 55vh); }
   /* sub-16px inputs make iOS zoom the whole page on focus */
   .term__in input, .chat__in input { font-size: 16px; }
-  /* chat becomes a bottom sheet */
-  .chat { left: 0; right: 0; bottom: 0; width: 100%; height: min(72vh, 560px); border-radius: 16px 16px 0 0; border-left: none; border-right: none; border-bottom: none; }
+  /* chat becomes a bottom sheet — short enough to keep the mascot in view above */
+  .chat { left: 0; right: 0; bottom: 0; width: 100%; height: min(52vh, 460px); border-radius: 16px 16px 0 0; border-left: none; border-right: none; border-bottom: none; }
   /* hint sits left so it never hides under the terminal launcher */
   .hint { left: 1rem; right: auto; transform: none; max-width: calc(100vw - 9.5rem); white-space: normal; text-align: left; line-height: 1.5; }
   /* arcade cabinet: fit small screens, keep the CRT aspect */
@@ -570,8 +570,11 @@ body.menu-open { overflow: hidden !important; }
 @media (max-width: 720px) {
   .hint { font-size: 0.7rem; bottom: 5.4rem; }
   .back-btn { bottom: 4.9rem; }
-  .panel { width: 100vw; border-left: none; }
-  .panel__scroll { padding-bottom: 9rem; }
+  /* the panel becomes a half-height bottom sheet so the 3D animations
+     (exploded laptop, demo whiteboard…) stay visible above it */
+  .panel { top: auto; bottom: 0; height: min(54vh, 520px); width: 100vw; border-left: none; border-top: 1px solid var(--line); border-radius: 16px 16px 0 0; transform: translateY(108%); box-shadow: 0 -30px 60px -30px rgba(0,0,0,0.7); }
+  .panel.is-on { transform: translateY(0); }
+  .panel__scroll { padding: 1.6rem 1.4rem 6.5rem; }
   /* full-screen panel has its own close button — hide the floating pill */
   .panel-open .back-btn { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(220%); }
 }

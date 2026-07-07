@@ -174,16 +174,18 @@ function boot() {
   };
 
   // ---- Panel open/close ----
-  // On desktop the panel eats the right side of the screen, so we shift the
-  // rendered view to keep the focused object centered in the visible area.
-  const panelOffset = () => (innerWidth > 720 ? Math.min(460, innerWidth * 0.92) / 2 : 0);
+  // The panel eats screen space (right side on desktop, bottom sheet on mobile),
+  // so we shift the rendered view to keep the focused object fully visible.
+  const panelShift = () => (innerWidth > 720
+    ? [Math.min(460, innerWidth * 0.92) / 2, 0]
+    : [0, innerHeight * 0.26]);
   function openPanel(section) {
     currentSection = section;
     panelBody.innerHTML = buildPanel(section, getLang());
     panelBody.scrollTop = 0;
     panel.classList.add('is-on');
     document.body.classList.add('panel-open');
-    exp.setSideOffset(panelOffset());
+    exp.setSideOffset(...panelShift());
     setActiveNav(section);
   }
   function closePanel() {
@@ -293,6 +295,7 @@ function boot() {
     chatOut.scrollTop = chatOut.scrollHeight;
     return d;
   };
+  let chatCam = false; // camera flew to the guy for this chat
   function openChat() {
     const c = C();
     $('chatTitle').textContent = c.title;
@@ -301,10 +304,22 @@ function boot() {
     chatChips.innerHTML = c.chips.map((x) => `<button data-cursor>${x}</button>`).join('');
     chatWin.classList.add('is-on');
     if (!chatGreeted) { chatGreeted = true; chatMsg(c.greeting, 'bot'); }
+    // meet him face to face: camera flies over, he waves for as long as you stay
+    if (inRoom) {
+      let camPos = exp.camera.position;
+      if (!exp.isFocused) { camPos = exp.flyToGuy(); chatCam = true; }
+      exp.room.guy.setGreeting(true);
+      exp.room.guy.wave(camPos);
+    }
     chatInput.focus();
     sfx.click();
   }
-  const closeChat = () => chatWin.classList.remove('is-on');
+  const closeChat = () => {
+    if (!chatWin.classList.contains('is-on')) return;
+    chatWin.classList.remove('is-on');
+    exp.room.guy.setGreeting(false);
+    if (chatCam) { chatCam = false; if (inRoom) exp.unfocus(); }
+  };
   $('chatClose').addEventListener('click', closeChat);
   const norm = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); // strip accents
   function chatSend(raw) {
@@ -325,7 +340,7 @@ function boot() {
   $('chatSend').addEventListener('click', () => { chatSend(chatInput.value); chatInput.value = ''; });
   chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { chatSend(chatInput.value); chatInput.value = ''; } });
   exp.onEvent = (name) => {
-    if (name === 'chat') { exp.room.guy.wave(exp.camera.position); openChat(); }
+    if (name === 'chat') openChat();
     if (name === 'rubik') { exp.room.rubikSolve(); sfx.click(); }
   };
   // the little guy follows you to whichever section you focus
