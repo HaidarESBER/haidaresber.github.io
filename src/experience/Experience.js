@@ -30,6 +30,7 @@ export default class Experience {
     this.canvas = canvas;
     this.onFocus = null;   // callback(focusObj|null, interactive)
     this.onHover = null;   // callback(interactive|null, x, y)
+    this.onEvent = null;   // callback(name) for non-camera interactions (e.g. the chat guy)
     this.isFocused = false;
     this.isMoving = false;
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -70,8 +71,12 @@ export default class Experience {
     this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   }
 
+  // viewport = the canvas's CSS box (fullscreen in room mode, the aperçu slot on the site)
+  _vw() { return this.canvas.clientWidth || innerWidth; }
+  _vh() { return this.canvas.clientHeight || innerHeight; }
+
   _initCamera() {
-    this.camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.1, 100);
+    this.camera = new THREE.PerspectiveCamera(35, this._vw() / this._vh(), 0.1, 100);
     this.camera.position.set(12, 9, 12);
     this.scene.add(this.camera);
 
@@ -93,9 +98,9 @@ export default class Experience {
   _initPost() {
     this.composer = new EffectComposer(this.renderer);
     this.composer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    this.composer.setSize(innerWidth, innerHeight);
+    this.composer.setSize(this._vw(), this._vh());
     this.composer.addPass(new RenderPass(this.scene, this.camera));
-    this.bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.2, 0.45, 0.95);
+    this.bloom = new UnrealBloomPass(new THREE.Vector2(this._vw(), this._vh()), 0.2, 0.45, 0.95);
     this.composer.addPass(this.bloom);
     this.composer.addPass(new OutputPass());
     // stop idle auto-rotate on first user interaction
@@ -119,8 +124,13 @@ export default class Experience {
     this.room = buildRoom();
     this.scene.add(this.room.group);
     this.foci = this.room.foci;
-    // make all room meshes cast/receive shadow where sensible
-    this.room.group.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+    // shadows + anisotropic filtering so canvas text stays crisp at an angle
+    const maxAniso = this.renderer.capabilities.getMaxAnisotropy();
+    this.room.group.traverse((o) => {
+      if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; }
+      const map = o.material && o.material.map;
+      if (map && map.anisotropy < maxAniso) { map.anisotropy = maxAniso; map.needsUpdate = true; }
+    });
   }
 
   _initRaycaster() {
@@ -167,8 +177,9 @@ export default class Experience {
   }
 
   _pick(e) {
-    this.pointer.x = (e.clientX / innerWidth) * 2 - 1;
-    this.pointer.y = -(e.clientY / innerHeight) * 2 + 1;
+    const r = this.canvas.getBoundingClientRect();
+    this.pointer.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+    this.pointer.y = -((e.clientY - r.top) / r.height) * 2 + 1;
     this.raycaster.setFromCamera(this.pointer, this.camera);
     const hits = this.raycaster.intersectObjects([...this.meshToInteractive.keys()], false);
     return hits.length ? this.meshToInteractive.get(hits[0].object) : null;
@@ -193,6 +204,7 @@ export default class Experience {
     const it = this._pick(e);
     if (!it) return;
     if (it.action?.type === 'url') { window.open(it.action.value, '_blank', 'noopener'); return; }
+    if (it.action?.type === 'event') { if (this.onEvent) this.onEvent(it.action.value); return; }
     if (it.focusKey) this.focusKey(it.focusKey, it);
   };
 
@@ -204,8 +216,9 @@ export default class Experience {
   }
 
   _applySideOffset() {
+    const w = this._vw(), h = this._vh();
     if (Math.abs(this._sideOffset.x) < 1) this.camera.clearViewOffset();
-    else this.camera.setViewOffset(innerWidth, innerHeight, this._sideOffset.x, 0, innerWidth, innerHeight);
+    else this.camera.setViewOffset(w, h, this._sideOffset.x, 0, w, h);
   }
 
   _dur(d) { return this.reduced ? 0.01 : d; }
@@ -214,6 +227,7 @@ export default class Experience {
   focusKey(key, interactive = null) {
     const f = this.foci[key];
     if (!f) return;
+    if (this.onFocusStart) this.onFocusStart(key);
     this._setHover(null, { clientX: 0, clientY: 0 });
     this.isFocused = true; this.isMoving = true;
     this.controls.enabled = false; this.controls.autoRotate = false;
@@ -227,6 +241,7 @@ export default class Experience {
 
   unfocus() {
     const f = this.foci.home;
+    if (this.onFocusStart) this.onFocusStart(null);
     this.isMoving = true;
     this.setSideOffset(0);
     gsap.to(this.camera.position, { x: f.pos.x, y: f.pos.y, z: f.pos.z, duration: this._dur(1.2), ease: 'power3.inOut' });
@@ -254,15 +269,34 @@ export default class Experience {
   }
 
   _resize = () => {
-    this.camera.aspect = innerWidth / innerHeight;
+    const w = this._vw(), h = this._vh();
+    this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
     this._applySideOffset();
-    this.renderer.setSize(innerWidth, innerHeight);
+    this.renderer.setSize(w, h, false); // CSS owns the display size
     this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    if (this.composer) { this.composer.setSize(innerWidth, innerHeight); this.composer.setPixelRatio(Math.min(devicePixelRatio, 2)); }
+    if (this.composer) { this.composer.setSize(w, h); this.composer.setPixelRatio(Math.min(devicePixelRatio, 2)); }
   };
 
+  // ---------- Render loop control ----------
+  // On the landing site the room is a frozen preview: the loop is fully
+  // paused (zero GPU/CPU cost) and the canvas keeps its last frame.
+  pause() { this.paused = true; }
+  resume() {
+    if (!this.paused) return;
+    this.paused = false;
+    this._last = this._clock.getElapsedTime();
+    this._tick();
+  }
+  renderOnce() {
+    const t = this._clock.getElapsedTime();
+    this.room.animate(t);
+    this.controls.update();
+    this.composer.render();
+  }
+
   _tick = () => {
+    if (this.paused) return; // resume() restarts the loop
     requestAnimationFrame(this._tick);
     const t = this._clock.getElapsedTime();
     const dt = t - this._last; this._last = t;

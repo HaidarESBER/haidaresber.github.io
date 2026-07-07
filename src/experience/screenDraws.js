@@ -68,7 +68,7 @@ export function drawCoJeCo(t = 0) {
   x.fillStyle = g; x.fillRect(0, 0, 640, 400);
   x.fillStyle = '#7c9cff'; x.font = 'bold 28px sans-serif'; x.fillText('CoJeCo', 30, 56);
   x.fillStyle = '#ffffff66'; x.font = '13px sans-serif'; x.fillText('Collectif de Jeunes Connectés · cojeco.fr', 30, 78);
-  const cards = [['Membres', '1 247', '#5ce1e6'], ['Ateliers', '84', '#7c9cff'], ['Impact', '98%', '#ff7a45']];
+  const cards = [['Partenaires', '4', '#5ce1e6'], ['Fondé', '2025', '#7c9cff'], ['Mission', '100%', '#ff7a45']];
   cards.forEach((cd, i) => {
     const cx = 30 + i * 195;
     x.fillStyle = '#ffffff0d'; rr(x, cx, 110, 175, 110, 12); x.fill();
@@ -147,7 +147,11 @@ export function drawArcade(t = 0) {
   return c;
 }
 
-// ---- Whiteboard: PhaseShield signal diagram ----
+// ---- Whiteboard: PhaseShield signal diagram (live demo togglable) ----
+let shieldOn = false;
+export const setShield = (on) => { shieldOn = on; };
+export const isShieldOn = () => shieldOn;
+
 export function drawWhiteboard(t = 0) {
   const c = makeCanvas(700, 460);
   const x = c.getContext('2d');
@@ -156,29 +160,43 @@ export function drawWhiteboard(t = 0) {
   x.font = 'bold 30px sans-serif'; x.fillText('PhaseShield', 36, 56);
   x.font = '16px sans-serif'; x.fillStyle = '#555';
   x.fillText('adversarial WiFi-CSI privacy', 36, 84);
+  // demo state stamp
+  x.font = 'bold 15px monospace';
+  if (shieldOn) { x.fillStyle = '#1c7c3f'; x.fillText('● SHIELD ON — sensing neutralised', 380, 56); }
+  else { x.fillStyle = '#b3402a'; x.fillText('○ shield off — presence detectable', 380, 56); }
 
   // transmitter -> waves -> receiver
   x.fillStyle = '#1a1a22'; x.font = '14px monospace';
   x.fillText('TX', 70, 250); x.fillText('RX', 600, 250);
-  // antennas
   x.strokeStyle = '#1a1a22'; x.lineWidth = 3;
   x.beginPath(); x.moveTo(85, 240); x.lineTo(85, 200); x.stroke();
   x.beginPath(); x.moveTo(615, 240); x.lineTo(615, 200); x.stroke();
-  // clean wave (blue) + perturbed wave (orange)
+  // clean wave (blue) + adversarial perturbation (orange, only when the shield runs)
   x.lineWidth = 2.5;
-  for (let pass = 0; pass < 2; pass++) {
-    x.strokeStyle = pass === 0 ? '#2b6cff' : '#ff6a2b';
+  x.strokeStyle = '#2b6cff';
+  x.beginPath();
+  for (let px = 100; px <= 600; px += 4) {
+    const phase = (px - 100) * 0.05 + t * 2;
+    const breathing = shieldOn ? 0 : Math.sin(t * 1.2) * 9 * Math.sin((px - 100) * 0.02); // "human" envelope
+    const py = 200 + Math.sin(phase) * 26 + breathing;
+    px === 100 ? x.moveTo(px, py) : x.lineTo(px, py);
+  }
+  x.stroke();
+  if (shieldOn) {
+    x.strokeStyle = '#ff6a2b';
     x.beginPath();
     for (let px = 100; px <= 600; px += 4) {
       const phase = (px - 100) * 0.05 + t * 2;
-      const noise = pass === 1 ? Math.sin(px * 0.3 + t * 5) * 8 * Math.sin(t) : 0;
+      const noise = Math.sin(px * 0.31 + t * 7) * 14 + Math.sin(px * 0.11 - t * 3) * 8;
       const py = 200 + Math.sin(phase) * 26 + noise;
       px === 100 ? x.moveTo(px, py) : x.lineTo(px, py);
     }
     x.stroke();
+    x.fillStyle = '#ff6a2b'; x.font = '13px sans-serif'; x.fillText('+ perturbation adversariale (FGSM / PGD)', 260, 320);
+  } else {
+    x.fillStyle = '#b3402a'; x.font = '13px sans-serif'; x.fillText('breathing / motion signature visible in CSI', 260, 320);
   }
-  x.fillStyle = '#2b6cff'; x.font = '13px sans-serif'; x.fillText('clean CSI', 300, 150);
-  x.fillStyle = '#ff6a2b'; x.fillText('+ perturbation (FGSM / PGD)', 300, 320);
+  x.fillStyle = '#2b6cff'; x.font = '13px sans-serif'; x.fillText('CSI amplitude', 300, 150);
   // formula box
   x.strokeStyle = '#1a1a22'; x.lineWidth = 1.5; x.strokeRect(36, 360, 360, 60);
   x.fillStyle = '#1a1a22'; x.font = '18px monospace'; x.fillText("x' = x + ε · sign(∇ₓ J)", 56, 398);

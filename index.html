@@ -9,9 +9,9 @@
   <meta property="og:title" content="Haidar Esber — Interactive 3D Portfolio" />
   <meta property="og:description" content="Fullstack developer & cybersecurity researcher. Explore my work inside an interactive 3D room." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/images/haidar.jpg" />
+  <meta property="og:image" content="/og.png" />
   <title>Haidar Esber — 3D Portfolio</title>
-  <link rel="icon" type="image/png" href="./images/logos-circle.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -25,14 +25,21 @@
     <div class="loader__inner">
       <div class="loader__name">HAIDAR ESBER</div>
       <div class="loader__sub">Fullstack Developer · Researcher</div>
+      <div class="loader__term" id="loaderTerm" aria-hidden="true"></div>
       <div class="loader__bar"><span id="loaderFill"></span></div>
       <div class="loader__count"><span id="loaderPct">0</span>%</div>
     </div>
   </div>
 
-  <!-- TOP BAR -->
+  <!-- LANDING SITE (rendered by JS; the 3D room shows through behind the hero) -->
+  <div class="site" id="site"></div>
+
+  <!-- TOP BAR (room mode) -->
   <header class="hud hud--top" id="hud">
-    <a class="hud__logo" href="#" data-cursor>HE<span>.</span></a>
+    <div class="hud__left">
+      <a class="hud__logo" href="#" id="hudLogo" data-cursor>HE<span>.</span></a>
+      <button class="hud__exit" id="exitRoom" data-cursor>← <span data-i18n="site.backToSite">site</span></button>
+    </div>
     <nav class="hud__nav" id="hudNav">
       <button data-target="laptop"     data-i18n="nav.about"    data-cursor>À propos</button>
       <button data-target="monitors"   data-i18n="nav.work"     data-cursor>Projets</button>
@@ -41,6 +48,7 @@
       <button data-target="contact"    data-i18n="nav.contact"  data-cursor>Contact</button>
     </nav>
     <div class="hud__right">
+      <span class="hud__status"><i></i><span data-i18n="statusShort">dispo · sept. 2026</span></span>
       <div class="lang-switch" id="langSwitch">
         <button data-lang="fr" class="active" data-cursor>FR</button><span>/</span><button data-lang="en" data-cursor>EN</button>
       </div>
@@ -88,6 +96,32 @@
         <button id="agFire" class="arcade__btn arcade__btn--fire" aria-label="fire">FIRE</button>
         <button id="agRight" class="arcade__btn" aria-label="right">▶</button>
       </div>
+    </div>
+  </div>
+
+  <!-- MINI-HAIDAR CHAT -->
+  <div class="chat" id="chatWin" role="dialog" aria-label="Chat">
+    <div class="chat__bar">
+      <span class="chat__ava" aria-hidden="true"></span>
+      <div class="chat__id"><strong id="chatTitle">mini-haidar</strong><span id="chatStatus">en ligne</span></div>
+      <button class="chat__close" id="chatClose" aria-label="close" data-cursor>×</button>
+    </div>
+    <div class="chat__out" id="chatOut"></div>
+    <div class="chat__chips" id="chatChips"></div>
+    <div class="chat__in">
+      <input id="chatInput" spellcheck="false" autocomplete="off" aria-label="Message" />
+      <button id="chatSend" aria-label="send" data-cursor>→</button>
+    </div>
+  </div>
+
+  <!-- TERMINAL EASTER EGG -->
+  <button class="term-launch" id="termLaunch" aria-expanded="false" aria-label="Terminal" data-cursor>&gt;_ <span data-i18n="terminal.hint">terminal</span></button>
+  <div class="term" id="termWin" role="dialog" aria-label="Terminal">
+    <div class="term__bar"><span class="term__dot term__dot--r"></span><span class="term__dot"></span><span class="term__dot term__dot--g"></span><span class="term__title">guest@portfolio:~ — interactive</span></div>
+    <div class="term__out" id="termOut"></div>
+    <div class="term__in">
+      <span>guest@portfolio:~$</span>
+      <input id="termInput" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Terminal input" />
     </div>
   </div>
 

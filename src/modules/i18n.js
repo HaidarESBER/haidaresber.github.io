@@ -32,7 +32,9 @@ export function setLang(next) {
 }
 
 export function initLangSwitch() {
-  document.querySelectorAll('.lang-switch button').forEach((b) =>
-    b.addEventListener('click', () => setLang(b.dataset.lang))
-  );
+  // delegated so re-rendered switches (site header) keep working
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('.lang-switch button');
+    if (b) setLang(b.dataset.lang);
+  });
 }
