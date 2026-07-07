@@ -1,0 +1,31 @@
+﻿# Dependencies / build output
+node_modules/
+target/
+dist/
+build/
+.next/
+__pycache__/
+*.pyc
+.venv/
+venv/
+# Secrets & env
+.env
+.env.*
+*.pem
+*.key
+.tokens.json
+*.tokens.json
+tokens.json
+secrets.json
+credentials.json
+serviceAccount*.json
+*.tfvars
+*.tfvars.json
+.terraform/
+*.tfstate
+*.tfstate.*
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

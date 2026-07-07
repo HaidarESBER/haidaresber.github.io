@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Haidar Esber — Fullstack Developer & Cybersecurity Researcher. An interactive 3D room portfolio." />
+  <meta name="author" content="Haidar Esber" />
+  <meta name="theme-color" content="#0a0c12" />
+  <meta property="og:title" content="Haidar Esber — Interactive 3D Portfolio" />
+  <meta property="og:description" content="Fullstack developer & cybersecurity researcher. Explore my work inside an interactive 3D room." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/images/haidar.jpg" />
+  <title>Haidar Esber — 3D Portfolio</title>
+  <link rel="icon" type="image/png" href="./images/logos-circle.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- WEBGL -->
+  <canvas class="webgl" id="webgl"></canvas>
+
+  <!-- LOADING -->
+  <div class="loader" id="loader">
+    <div class="loader__inner">
+      <div class="loader__name">HAIDAR ESBER</div>
+      <div class="loader__sub">Fullstack Developer · Researcher</div>
+      <div class="loader__bar"><span id="loaderFill"></span></div>
+      <div class="loader__count"><span id="loaderPct">0</span>%</div>
+    </div>
+  </div>
+
+  <!-- TOP BAR -->
+  <header class="hud hud--top" id="hud">
+    <a class="hud__logo" href="#" data-cursor>HE<span>.</span></a>
+    <nav class="hud__nav" id="hudNav">
+      <button data-target="laptop"     data-i18n="nav.about"    data-cursor>À propos</button>
+      <button data-target="monitors"   data-i18n="nav.work"     data-cursor>Projets</button>
+      <button data-target="whiteboard" data-i18n="nav.research" data-cursor>Recherche</button>
+      <button data-target="certs"      data-i18n="nav.certs"    data-cursor>Certifs</button>
+      <button data-target="contact"    data-i18n="nav.contact"  data-cursor>Contact</button>
+    </nav>
+    <div class="hud__right">
+      <div class="lang-switch" id="langSwitch">
+        <button data-lang="fr" class="active" data-cursor>FR</button><span>/</span><button data-lang="en" data-cursor>EN</button>
+      </div>
+      <button class="hud__sound" id="soundBtn" title="sound" data-cursor>♪</button>
+    </div>
+  </header>
+
+  <!-- HINT -->
+  <div class="hint" id="hint">
+    <span class="hint__icon">⟲</span>
+    <span data-i18n="hint.text">Glissez pour explorer · cliquez les objets</span>
+  </div>
+
+  <!-- HOVER TOOLTIP -->
+  <div class="tip" id="tip"></div>
+
+  <!-- BACK BUTTON -->
+  <button class="back-btn" id="backBtn" data-cursor>
+    <span>←</span> <span data-i18n="panel.back">Retour</span>
+  </button>
+
+  <!-- INFO PANEL -->
+  <aside class="panel" id="panel">
+    <button class="panel__close" id="panelClose" aria-label="close" data-cursor>×</button>
+    <div class="panel__scroll" id="panelBody"></div>
+  </aside>
+
+  <!-- MOBILE DOCK -->
+  <nav class="dock" id="dock">
+    <button data-target="laptop"     data-cursor><span class="dock__ic">◆</span><span data-i18n="nav.about">À propos</span></button>
+    <button data-target="monitors"   data-cursor><span class="dock__ic">▣</span><span data-i18n="nav.work">Projets</span></button>
+    <button data-target="whiteboard" data-cursor><span class="dock__ic">∿</span><span data-i18n="nav.research">Recherche</span></button>
+    <button data-target="certs"      data-cursor><span class="dock__ic">✦</span><span data-i18n="nav.certs">Certifs</span></button>
+    <button data-target="contact"    data-cursor><span class="dock__ic">✉</span><span data-i18n="nav.contact">Contact</span></button>
+  </nav>
+
+  <!-- ARCADE GAME OVERLAY -->
+  <div class="arcade" id="arcadeGame">
+    <div class="arcade__cab">
+      <div class="arcade__title">HAIDAR · INVADERS</div>
+      <div class="arcade__screen" id="arcadeMount"></div>
+      <div class="arcade__hint" data-i18n="arcade.hint">← → bouger · ESPACE tirer · ÉCHAP quitter</div>
+      <div class="arcade__pad">
+        <button id="agLeft" class="arcade__btn" aria-label="left">◀</button>
+        <button id="agFire" class="arcade__btn arcade__btn--fire" aria-label="fire">FIRE</button>
+        <button id="agRight" class="arcade__btn" aria-label="right">▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
