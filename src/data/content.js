@@ -603,7 +603,7 @@ export const EXPERIENCE = [
   },
   {
     date: { fr: '2025 — auj.', en: '2025 — now' },
-    role: { fr: 'Consultant transformation IA (alternance)', en: 'AI transformation consultant (apprenticeship)' },
+    role: { fr: 'Consultant transformation IA', en: 'AI transformation consultant' },
     org: { fr: "Cabinet d'avocats · Aubervilliers", en: 'Law firm · Aubervilliers' },
     body: {
       fr: "Conception et pilotage d'une feuille de route de transformation IA sur 12 mois, en quatre phases, avec livrables suivis dans un espace Notion dédié.",
