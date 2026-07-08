@@ -35,6 +35,9 @@ function boot() {
 
   const exp = new Experience($('webgl'));
   window.__exp = exp; // debugging/tuning handle
+  // don't pop the on-screen keyboard on touch — let users read first, tap the field when ready
+  const isTouch = matchMedia('(pointer: coarse)').matches;
+  const softFocus = (el) => { if (!isTouch) el.focus(); };
 
   const loader = $('loader'), fill = $('loaderFill'), pct = $('loaderPct');
   const hud = $('hud'), hint = $('hint'), tip = $('tip'), backBtn = $('backBtn');
@@ -311,7 +314,7 @@ function boot() {
       exp.room.guy.setGreeting(true);
       exp.room.guy.wave(camPos);
     }
-    chatInput.focus();
+    softFocus(chatInput);
     sfx.click();
   }
   const closeChat = () => {
@@ -363,7 +366,7 @@ function boot() {
     termWin.classList.add('is-on'); termLaunch.classList.add('is-open');
     termLaunch.setAttribute('aria-expanded', 'true');
     if (!greeted) { greeted = true; T().greet.forEach((l) => tLine(l)); }
-    termInput.focus(); sfx.click();
+    softFocus(termInput); sfx.click();
   }
   function closeTerm() {
     termWin.classList.remove('is-on'); termLaunch.classList.remove('is-open');
