@@ -229,13 +229,20 @@ export default class Experience {
 
   _dur(d) { return this.reduced ? 0.01 : d; }
 
-  // Portrait screens crop the horizontal FOV badly — back the camera off
-  // proportionally so every focus preset still frames its whole subject.
-  _adapt(f) {
+  // Portrait crops the horizontal field of view badly, so wide subjects (dual
+  // monitors, wall boards) get clipped. Rather than pull the camera back (which
+  // shrinks everything), we WIDEN the vertical FOV on narrow screens — that
+  // grows horizontal coverage too, fitting every focus without moving.
+  _applyFov() {
     const aspect = this._vw() / this._vh();
-    const k = aspect < 0.9 ? Math.min(1.9, 1 + (0.9 - aspect) * 1.5) : 1;
-    return f.target.clone().add(f.pos.clone().sub(f.target).multiplyScalar(k));
+    this.camera.aspect = aspect;
+    this.camera.fov = aspect >= 0.9 ? 35 : Math.min(58, 35 + (0.9 - aspect) * 42);
+    this.camera.updateProjectionMatrix();
   }
+
+  // camera position is unchanged now that FOV handles the fit; kept so existing
+  // call sites (intro/focus/unfocus/preview) stay simple.
+  _adapt(f) { return f.pos.clone(); }
 
   // ---------- Camera focus ----------
   focusKey(key, interactive = null) {
@@ -310,8 +317,7 @@ export default class Experience {
 
   _resize = () => {
     const w = this._vw(), h = this._vh();
-    this.camera.aspect = w / h;
-    this.camera.updateProjectionMatrix();
+    this._applyFov();
     this._applySideOffset();
     this.renderer.setSize(w, h, false); // CSS owns the display size
     this.renderer.setPixelRatio(this._pr());
