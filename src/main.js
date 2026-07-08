@@ -181,7 +181,7 @@ function boot() {
   // so we shift the rendered view to keep the focused object fully visible.
   const panelShift = () => (innerWidth > 720
     ? [Math.min(460, innerWidth * 0.92) / 2, 0]
-    : [0, innerHeight * 0.26]);
+    : [0, innerHeight * 0.2]);
   function openPanel(section) {
     currentSection = section;
     panelBody.innerHTML = buildPanel(section, getLang());
