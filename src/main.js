@@ -203,7 +203,7 @@ function boot() {
       b.classList.toggle('active', map[section] === b.dataset.target)
     );
   }
-  // cross-links, phone reveal and the PhaseShield live demo toggle — shared by
+  // cross-links and the PhaseShield live demo toggle — shared by
   // the slide-in panel and the landing site (which reuse the same markup)
   function panelClicks(e, inSite) {
     const enter = e.target.closest('[data-enter-room]');
@@ -212,13 +212,6 @@ function boot() {
     if (b) {
       if (inSite) enterRoomMode(b.dataset.goto);
       else if (!exp.isMoving) exp.focusKey(b.dataset.goto);
-      return;
-    }
-    const rev = e.target.closest('[data-reveal]');
-    if (rev) {
-      const v = rev.closest('p').querySelector('.phone-val');
-      if (v) v.innerHTML = `<a href="tel:${CONTACT.phoneHref}" data-cursor>${CONTACT.phone}</a>`;
-      rev.remove();
       return;
     }
     const sh = e.target.closest('[data-shield]');

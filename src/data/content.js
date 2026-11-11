@@ -3,9 +3,6 @@
 
 export const CONTACT = {
   email: 'haidarchreif@gmail.com',
-  phone: '+33 7 49 03 36 79',
-  phoneMask: '+33 · •• •• •• ••',
-  phoneHref: '+33749033679',
   github: 'https://github.com/HaidarESBER',
   linkedin: 'https://www.linkedin.com/in/haidaresber',
   researchgate: 'https://www.researchgate.net/profile/Haidar-Esber',
@@ -186,8 +183,6 @@ export const content = {
       eyebrow: 'Contact',
       title: 'Écrivez-moi.',
       body: 'Alternance 24 mois dès septembre 2026 — sécurité, IA ou systèmes connectés. Ma boîte mail est toujours ouverte.',
-      phoneLabel: 'Téléphone',
-      reveal: 'révéler',
     },
     chat: {
       title: 'mini-haidar',
@@ -406,8 +401,6 @@ export const content = {
       eyebrow: 'Contact',
       title: 'Write to me.',
       body: '24-month apprenticeship from September 2026 — security, AI or connected systems. My inbox is always open.',
-      phoneLabel: 'Phone',
-      reveal: 'reveal',
     },
     chat: {
       title: 'mini-haidar',

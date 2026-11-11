@@ -165,8 +165,7 @@ export function buildPanel(section, lang) {
         <p class="status-pill">● ${c.status}</p>
         <p>${c.contact.body}</p>
         <a class="mail-big" href="mailto:${CONTACT.email}" data-cursor>${CONTACT.email}</a>
-        <p>${c.contact.phoneLabel} — <span class="phone-val">${CONTACT.phoneMask}</span>
-          <button class="reveal-btn" data-reveal data-cursor>${c.contact.reveal}</button> · ${CONTACT.location}</p>
+        <p>${CONTACT.location}</p>
         <div class="btn-row">
           <a class="pbtn" href="${CONTACT.github}" target="_blank" rel="noopener" data-cursor>GitHub ↗</a>
           <a class="pbtn" href="${CONTACT.linkedin}" target="_blank" rel="noopener" data-cursor>LinkedIn ↗</a>

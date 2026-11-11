@@ -291,7 +291,6 @@ export function renderSite(lang) {
       <p class="sg-body sg-body--lead sg-reveal">${c.contact.body}</p>
       <div class="sg-rows sg-reveal">
         <div class="sg-row"><p class="sg-dim">Email</p><a href="mailto:${CONTACT.email}" data-cursor>${CONTACT.email}</a></div>
-        <div class="sg-row"><p class="sg-dim">${c.contact.phoneLabel}</p><p><span class="phone-val">${CONTACT.phoneMask}</span> <button class="sg-btn" data-reveal data-cursor>[ ${s.ui.reveal} ]</button></p></div>
         <div class="sg-row"><p class="sg-dim">LinkedIn</p><a href="${CONTACT.linkedin}" target="_blank" rel="noopener" data-cursor>linkedin.com/in/haidaresber</a></div>
         <div class="sg-row"><p class="sg-dim">GitHub</p><a href="${CONTACT.github}" target="_blank" rel="noopener" data-cursor>github.com/HaidarESBER</a></div>
         <div class="sg-row"><p class="sg-dim">ResearchGate</p><a href="${CONTACT.researchgate}" target="_blank" rel="noopener" data-cursor>researchgate.net/profile/Haidar-Esber</a></div>
